@@ -1,0 +1,10 @@
+{
+ "extends": "./tsconfig.json",
+ "compilerOptions": {
+  "paths": {
+   "@relaydesk/common": [
+    "../common/src/index.ts"
+   ]
+  }
+ }
+}

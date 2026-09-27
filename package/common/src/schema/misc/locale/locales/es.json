@@ -1,0 +1,141 @@
+{
+    "auth": {
+        "field": {
+            "email": "Correo electrónico",
+            "password": "Contraseña",
+            "passwordConfirmation": "Confirmar contraseña"
+        },
+        "login": {
+            "forgotPassword": "¿Olvidaste tu contraseña?",
+            "noAccount": "¿No tienes cuenta? Regístrate",
+            "submit": "Iniciar sesión",
+            "title": "Iniciar sesión"
+        },
+        "register": {
+            "hasAccount": "¿Ya tienes cuenta? Inicia sesión",
+            "submit": "Crear cuenta",
+            "title": "Crear cuenta"
+        }
+    },
+    "common": {
+        "cancel": "Cancelar",
+        "notAvailable": "No disponible",
+        "save": "Guardar"
+    },
+    "dashboard": {
+        "index": {
+            "create": {
+                "name": "Nombre del espacio de trabajo",
+                "submit": "Crear espacio de trabajo",
+                "success": "Espacio de trabajo creado",
+                "title": "Nuevo espacio de trabajo"
+            },
+            "description": "Elige un espacio de trabajo para ver sus tickets.",
+            "empty": "Aún no perteneces a ningún espacio de trabajo. Crea uno para empezar.",
+            "role": "Tu rol: {{role}}",
+            "title": "Espacios de trabajo"
+        },
+        "layout": {
+            "menu": {
+                "logout": "Cerrar sesión",
+                "logoutError": "No se pudo cerrar la sesión",
+                "profile": "Perfil"
+            },
+            "title": "Relaydesk"
+        },
+        "nav": {
+            "profile": "Perfil",
+            "workspaces": "Espacios de trabajo"
+        },
+        "profile": {
+            "description": "Información de tu cuenta.",
+            "field": {
+                "createdAt": "Creado el",
+                "userEmail": "Correo electrónico",
+                "userId": "Identificador"
+            },
+            "title": "Perfil"
+        },
+        "ticket": {
+            "author": {
+                "agent": "Agente",
+                "customer": "Cliente"
+            },
+            "back": "Volver a los tickets",
+            "create": {
+                "body": "Mensaje del solicitante",
+                "priority": "Prioridad",
+                "requesterEmail": "Correo del solicitante",
+                "subject": "Asunto",
+                "submit": "Crear ticket",
+                "success": "Ticket creado",
+                "title": "Nuevo ticket"
+            },
+            "field": {
+                "createdAt": "Creado",
+                "priority": "Prioridad",
+                "requester": "Solicitante",
+                "status": "Estado"
+            },
+            "noMessages": "Este ticket no tiene mensajes.",
+            "reply": {
+                "label": "Respuesta",
+                "submit": "Enviar respuesta",
+                "success": "Respuesta enviada"
+            },
+            "title": "#{{number}} {{subject}}",
+            "updateSuccess": "Ticket actualizado"
+        },
+        "workspace": {
+            "back": "Todos los espacios de trabajo",
+            "column": {
+                "number": "#",
+                "priority": "Prioridad",
+                "requester": "Solicitante",
+                "status": "Estado",
+                "subject": "Asunto",
+                "updatedAt": "Actualizado"
+            },
+            "description": "{{total}} tickets",
+            "empty": "Ningún ticket coincide con este filtro.",
+            "filter": {
+                "all": "Todos",
+                "label": "Estado"
+            },
+            "newTicket": "Nuevo ticket",
+            "notFound": "Espacio de trabajo no encontrado"
+        }
+    },
+    "landing": {
+        "description": "Una bandeja compartida para tu equipo de soporte.",
+        "login": "Iniciar sesión",
+        "register": "Crear cuenta",
+        "title": "Relaydesk"
+    },
+    "locale": {
+        "english": "English",
+        "spanish": "Español",
+        "switchLabel": "Cambiar idioma"
+    },
+    "ticket": {
+        "priority": {
+            "high": "Alta",
+            "low": "Baja",
+            "normal": "Normal",
+            "urgent": "Urgente"
+        },
+        "status": {
+            "closed": "Cerrado",
+            "open": "Abierto",
+            "pending": "Pendiente",
+            "solved": "Resuelto"
+        }
+    },
+    "workspace": {
+        "role": {
+            "admin": "Administrador",
+            "agent": "Agente",
+            "owner": "Propietario"
+        }
+    }
+}

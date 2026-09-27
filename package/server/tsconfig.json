@@ -1,0 +1,22 @@
+{
+ "extends": "../../tsconfig.base.json",
+ "compilerOptions": {
+  "composite": true,
+  "rootDir": "src",
+  "outDir": "dist",
+  "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+  "paths": {
+   "@relaydesk/common": [
+    "../common/dist/index"
+   ]
+  }
+ },
+ "references": [
+  {
+   "path": "../common"
+  }
+ ],
+ "include": [
+  "src/**/*.ts"
+ ]
+}

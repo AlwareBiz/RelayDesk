@@ -1,0 +1,49 @@
+services:
+ postgres:
+  image: postgres:16
+  environment:
+   POSTGRES_USER: relaydesk_user
+   POSTGRES_PASSWORD: local_dev_password
+   POSTGRES_DB: relaydesk
+  ports: ['5432:5432']
+  volumes:
+   - postgres_data:/var/lib/postgresql/data
+   - ./migrations:/migrations:ro
+   - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/00-init.sh:ro
+   - ./scripts/migrate-db.sh:/usr/local/bin/migrate-db.sh:ro
+  healthcheck:
+   test: ['CMD-SHELL', 'pg_isready -U relaydesk_user -d relaydesk']
+   interval: 5s
+   timeout: 5s
+   retries: 5
+ migrate:
+  build: .
+  entrypoint: ['bash', '/app/scripts/migrate-db.sh']
+  environment:
+   MIGRATION_DIR: /app/migrations
+   PGHOST: postgres
+   PGDATABASE: relaydesk
+   PGUSER: relaydesk_user
+   PGPASSWORD: local_dev_password
+  volumes:
+   - ./migrations:/app/migrations:ro
+   - ./scripts/migrate-db.sh:/app/scripts/migrate-db.sh:ro
+  depends_on:
+   postgres:
+    condition: service_healthy
+ mongo:
+  image: mongo:8
+  environment:
+   MONGO_INITDB_DATABASE: relaydesk
+  ports: ['27017:27017']
+  volumes:
+   - mongo_data:/data/db
+   - ./scripts/init-mongo.js:/docker-entrypoint-initdb.d/00-init.js:ro
+  healthcheck:
+   test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping")']
+   interval: 5s
+   timeout: 5s
+   retries: 5
+volumes:
+ mongo_data:
+ postgres_data:

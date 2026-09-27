@@ -1,0 +1,141 @@
+{
+    "auth": {
+        "field": {
+            "email": "Email",
+            "password": "Password",
+            "passwordConfirmation": "Confirm password"
+        },
+        "login": {
+            "forgotPassword": "Forgot your password?",
+            "noAccount": "No account yet? Sign up",
+            "submit": "Sign in",
+            "title": "Sign in"
+        },
+        "register": {
+            "hasAccount": "Already have an account? Sign in",
+            "submit": "Create account",
+            "title": "Create account"
+        }
+    },
+    "common": {
+        "cancel": "Cancel",
+        "notAvailable": "Not available",
+        "save": "Save"
+    },
+    "dashboard": {
+        "index": {
+            "create": {
+                "name": "Workspace name",
+                "submit": "Create workspace",
+                "success": "Workspace created",
+                "title": "New workspace"
+            },
+            "description": "Pick a workspace to see its tickets.",
+            "empty": "You are not a member of any workspace yet. Create one to get started.",
+            "role": "Your role: {{role}}",
+            "title": "Workspaces"
+        },
+        "layout": {
+            "menu": {
+                "logout": "Log out",
+                "logoutError": "Could not log out",
+                "profile": "Profile"
+            },
+            "title": "Relaydesk"
+        },
+        "nav": {
+            "profile": "Profile",
+            "workspaces": "Workspaces"
+        },
+        "profile": {
+            "description": "Your account information.",
+            "field": {
+                "createdAt": "Created at",
+                "userEmail": "Email",
+                "userId": "Identifier"
+            },
+            "title": "Profile"
+        },
+        "ticket": {
+            "author": {
+                "agent": "Agent",
+                "customer": "Customer"
+            },
+            "back": "Back to tickets",
+            "create": {
+                "body": "Message from the requester",
+                "priority": "Priority",
+                "requesterEmail": "Requester email",
+                "subject": "Subject",
+                "submit": "Create ticket",
+                "success": "Ticket created",
+                "title": "New ticket"
+            },
+            "field": {
+                "createdAt": "Created",
+                "priority": "Priority",
+                "requester": "Requester",
+                "status": "Status"
+            },
+            "noMessages": "This ticket has no messages.",
+            "reply": {
+                "label": "Reply",
+                "submit": "Send reply",
+                "success": "Reply sent"
+            },
+            "title": "#{{number}} {{subject}}",
+            "updateSuccess": "Ticket updated"
+        },
+        "workspace": {
+            "back": "All workspaces",
+            "column": {
+                "number": "#",
+                "priority": "Priority",
+                "requester": "Requester",
+                "status": "Status",
+                "subject": "Subject",
+                "updatedAt": "Updated"
+            },
+            "description": "{{total}} tickets",
+            "empty": "No tickets match this filter.",
+            "filter": {
+                "all": "All",
+                "label": "Status"
+            },
+            "newTicket": "New ticket",
+            "notFound": "Workspace not found"
+        }
+    },
+    "landing": {
+        "description": "A shared inbox for your support team.",
+        "login": "Sign in",
+        "register": "Create account",
+        "title": "Relaydesk"
+    },
+    "locale": {
+        "english": "English",
+        "spanish": "Español",
+        "switchLabel": "Change language"
+    },
+    "ticket": {
+        "priority": {
+            "high": "High",
+            "low": "Low",
+            "normal": "Normal",
+            "urgent": "Urgent"
+        },
+        "status": {
+            "closed": "Closed",
+            "open": "Open",
+            "pending": "Pending",
+            "solved": "Solved"
+        }
+    },
+    "workspace": {
+        "role": {
+            "admin": "Admin",
+            "agent": "Agent",
+            "owner": "Owner"
+        }
+    }
+}

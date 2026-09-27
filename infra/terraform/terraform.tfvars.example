@@ -1,0 +1,6 @@
+aws_region = "us-east-1"
+project_name = "replace-me"
+github_repository = "owner/repository"
+app_secrets = <<JSON
+{"DATABASE_URL":"injected-at-deploy","JWT_SECRET":"replace-me","JWT_REFRESH_SECRET":"replace-me"}
+JSON

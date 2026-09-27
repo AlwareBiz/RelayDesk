@@ -1,0 +1,36 @@
+{
+ "name": "relaydesk",
+ "version": "1.0.0",
+ "private": true,
+ "type": "module",
+ "engines": {
+  "node": ">=22"
+ },
+ "workspaces": [
+  "package/*"
+ ],
+ "scripts": {
+  "build:frontend": "npm run build -w package/common && npm run build -w package/frontend",
+  "build:server": "npm run build -w package/common && npm run build -w package/server",
+  "check:log-uuids": "node scripts/sync-log-uuids.mjs --check",
+  "clean": "rm -rf package/*/dist node_modules",
+  "db:cleanup-logs": "docker compose run --rm --entrypoint bash migrate /app/scripts/cleanup-logs.sh",
+  "db:migrate": "docker compose run --rm migrate",
+  "dev:frontend": "npm run dev -w package/frontend",
+  "dev:server": "npm run dev -w package/server",
+  "lint": "eslint package/",
+  "lint:fix": "eslint package/ --fix",
+  "prepare": "husky",
+  "start:server": "node package/server/dist/index.js",
+  "sync:log-uuids": "node scripts/sync-log-uuids.mjs",
+  "test": "npm run test --workspaces --if-present",
+  "typecheck": "tsc -b && npm run typecheck -w package/frontend"
+ },
+ "devDependencies": {
+  "@eslint/js": "9.39.5",
+  "eslint": "9.39.5",
+  "husky": "9.1.7",
+  "typescript": "5.9.3",
+  "typescript-eslint": "8.64.0"
+ }
+}
