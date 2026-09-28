@@ -31,13 +31,13 @@ ruleTester.run('explicit-else-comment', explicitElseComment, {
 
 ruleTester.run('route-handler-summary', routeHandlerSummary, {
  invalid: [
-  { code: 'ticketRouter.get(path, handler);', errors: [{ messageId: 'missing' }] },
-  { code: '// fetch tickets\n\nticketRouter.get(path, handler);', errors: [{ messageId: 'missing' }] },
+  { code: 'conversationRouter.get(path, handler);', errors: [{ messageId: 'missing' }] },
+  { code: '// fetch conversations\n\nconversationRouter.get(path, handler);', errors: [{ messageId: 'missing' }] },
  ],
  valid: [
-  '// fetch every ticket in a workspace\nticketRouter.get(path, handler);',
+  '// fetch every conversation in a workspace\nconversationRouter.get(path, handler);',
   'app.get(path, handler);',
-  'ticketRouter.use(middleware);',
+  'conversationRouter.use(middleware);',
  ],
 });
 

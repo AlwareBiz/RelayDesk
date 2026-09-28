@@ -61,33 +61,33 @@ describe('locale dictionaries', () => {
   const dictionary = (name: string, data: LocaleData): Dictionary => ({ data, name });
 
   it('reports nothing when both dictionaries have the same keys', () => {
-   const first = dictionary('en.json', { ticket: { status: { open: 'Open' } } });
-   const second = dictionary('es.json', { ticket: { status: { open: 'Abierto' } } });
+   const first = dictionary('en.json', { conversation: { status: { open: 'Open' } } });
+   const second = dictionary('es.json', { conversation: { status: { open: 'Abierto' } } });
    expect(findKeyMismatches(first, second)).toEqual([]);
   });
 
   it('names a key missing from the first dictionary', () => {
-   const first = dictionary('en.json', { ticket: { status: { open: 'Open' } } });
-   const second = dictionary('es.json', { ticket: { status: { closed: 'Cerrado', open: 'Abierto' } } });
-   expect(findKeyMismatches(first, second)).toEqual(['ticket.status.closed is missing from en.json']);
+   const first = dictionary('en.json', { conversation: { status: { open: 'Open' } } });
+   const second = dictionary('es.json', { conversation: { status: { closed: 'Cerrado', open: 'Abierto' } } });
+   expect(findKeyMismatches(first, second)).toEqual(['conversation.status.closed is missing from en.json']);
   });
 
   it('names a key missing from the second dictionary', () => {
-   const first = dictionary('en.json', { ticket: { status: { closed: 'Closed', open: 'Open' } } });
-   const second = dictionary('es.json', { ticket: { status: { open: 'Abierto' } } });
-   expect(findKeyMismatches(first, second)).toEqual(['ticket.status.closed is missing from es.json']);
+   const first = dictionary('en.json', { conversation: { status: { closed: 'Closed', open: 'Open' } } });
+   const second = dictionary('es.json', { conversation: { status: { open: 'Abierto' } } });
+   expect(findKeyMismatches(first, second)).toEqual(['conversation.status.closed is missing from es.json']);
   });
 
   it('names every text under a missing group', () => {
    const first = dictionary('en.json', {});
-   const second = dictionary('es.json', { ticket: { status: { closed: 'Cerrado', open: 'Abierto' } } });
-   expect(findKeyMismatches(first, second)).toEqual(['ticket.status.closed is missing from en.json', 'ticket.status.open is missing from en.json']);
+   const second = dictionary('es.json', { conversation: { status: { closed: 'Cerrado', open: 'Abierto' } } });
+   expect(findKeyMismatches(first, second)).toEqual(['conversation.status.closed is missing from en.json', 'conversation.status.open is missing from en.json']);
   });
 
   it('reports a key that is a text in one dictionary and a group of keys in the other', () => {
-   const first = dictionary('en.json', { ticket: { status: 'Status' } });
-   const second = dictionary('es.json', { ticket: { status: { open: 'Abierto' } } });
-   expect(findKeyMismatches(first, second)).toEqual(['ticket.status is a text in en.json and a group of keys in es.json']);
+   const first = dictionary('en.json', { conversation: { status: 'Status' } });
+   const second = dictionary('es.json', { conversation: { status: { open: 'Abierto' } } });
+   expect(findKeyMismatches(first, second)).toEqual(['conversation.status is a text in en.json and a group of keys in es.json']);
   });
  });
 });

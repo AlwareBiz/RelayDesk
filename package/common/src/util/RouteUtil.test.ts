@@ -7,17 +7,17 @@ import { RouteUtil } from './RouteUtil';
 describe('RouteUtil', () => {
  describe('fill', () => {
   it('replaces every :param segment with its value', () => {
-   expect(RouteUtil.fill('/api/workspace/:workspaceId/ticket/:ticketId', { ticketId: 't1', workspaceId: 'w1' })).toBe('/api/workspace/w1/ticket/t1');
+   expect(RouteUtil.fill('/api/workspace/:workspaceId/conversation/:conversationId', { conversationId: 't1', workspaceId: 'w1' })).toBe('/api/workspace/w1/conversation/t1');
   });
 
   // a raw "/" or "?" in an id would silently hit a different route
   it('URL-encodes values so an id cannot change the path', () => {
-   expect(RouteUtil.fill('/api/ticket/:ticketId', { ticketId: 'a/b?c' })).toBe('/api/ticket/a%2Fb%3Fc');
+   expect(RouteUtil.fill('/api/conversation/:conversationId', { conversationId: 'a/b?c' })).toBe('/api/conversation/a%2Fb%3Fc');
   });
 
-  // a missing param would otherwise produce a request to a literal ":ticketId" path
+  // a missing param would otherwise produce a request to a literal ":conversationId" path
   it('throws when a param has no value', () => {
-   expect(() => RouteUtil.fill('/api/ticket/:ticketId', {})).toThrow('Missing route param: ticketId');
+   expect(() => RouteUtil.fill('/api/conversation/:conversationId', {})).toThrow('Missing route param: conversationId');
   });
  });
 

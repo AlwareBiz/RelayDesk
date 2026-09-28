@@ -5,7 +5,7 @@ description: Add an API endpoint to RelayDesk and call it from the frontend, fro
 
 # Add an API route
 
-`package/server/src/route/dashboard/ticket.ts` and `package/frontend/src/route/dashboard/workspace/ticket.tsx` are the reference pair.
+`package/server/src/route/dashboard/conversation.ts` and `package/frontend/src/route/dashboard/workspace/conversation.tsx` are the reference pair.
 
 1. **Path**: add it to `backendRoutes` in `package/common/src/route/backend.ts`, keys alphabetical. Use `:param` segments (`/api/dashboard/workspace/:workspaceId/widget/:widgetId`).
 2. **Contract**: in the entity's `api/` folder, add the request schema, its inferred type, a keys map if a form uses it, and the response type (`FetchWidgetResponseData`). Export it through the barrels.

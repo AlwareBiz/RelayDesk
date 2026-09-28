@@ -1,16 +1,16 @@
 import type { TableTypes } from '../tableTypes';
-import type { TicketPriorityEnum, TicketStatusEnum } from '../enum';
+import type { ConversationPriorityEnum, ConversationStatusEnum } from '../enum';
 
 // ********************************************************************************
 // == Type ========================================================================
-export type TicketRow = {
+export type ConversationRow = {
  assignee_profile_id: string | null;
  created_at: string;
  id: string;
  number: number;
- priority: TicketPriorityEnum;
+ priority: ConversationPriorityEnum;
  requester_email: string;
- status: TicketStatusEnum;
+ status: ConversationStatusEnum;
  subject: string;
  updated_at: string;
  workspace_id: string;
@@ -18,4 +18,4 @@ export type TicketRow = {
 
 type OptionalOnInsert = 'assignee_profile_id' | 'created_at' | 'id' | 'priority' | 'status' | 'updated_at';
 
-export type TicketTableTypes = TableTypes<TicketRow, OptionalOnInsert>;
+export type ConversationTableTypes = TableTypes<ConversationRow, OptionalOnInsert>;

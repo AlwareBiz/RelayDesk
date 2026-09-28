@@ -10,6 +10,6 @@ export const workspaceColumns: { [key in keyof Workspace]: key } = {
  created_at: 'created_at',
  id: 'id',
  name: 'name',
- ticket_counter: 'ticket_counter',
+ ticket_counter: 'ticket_counter', // stored name, renamed to conversation_counter in #10
  updated_at: 'updated_at',
 };

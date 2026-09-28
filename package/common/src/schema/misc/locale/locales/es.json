@@ -22,7 +22,51 @@
         "notAvailable": "No disponible",
         "save": "Guardar"
     },
+    "conversation": {
+        "priority": {
+            "high": "Alta",
+            "low": "Baja",
+            "normal": "Normal",
+            "urgent": "Urgente"
+        },
+        "status": {
+            "closed": "Cerrada",
+            "open": "Abierta",
+            "pending": "Pendiente",
+            "solved": "Resuelta"
+        }
+    },
     "dashboard": {
+        "conversation": {
+            "author": {
+                "agent": "Agente",
+                "customer": "Cliente"
+            },
+            "back": "Volver a las conversaciones",
+            "create": {
+                "body": "Mensaje del solicitante",
+                "priority": "Prioridad",
+                "requesterEmail": "Correo del solicitante",
+                "subject": "Asunto",
+                "submit": "Crear conversación",
+                "success": "Conversación creada",
+                "title": "Nueva conversación"
+            },
+            "field": {
+                "createdAt": "Creado",
+                "priority": "Prioridad",
+                "requester": "Solicitante",
+                "status": "Estado"
+            },
+            "noMessages": "Esta conversación no tiene mensajes.",
+            "reply": {
+                "label": "Respuesta",
+                "submit": "Enviar respuesta",
+                "success": "Respuesta enviada"
+            },
+            "title": "#{{number}} {{subject}}",
+            "updateSuccess": "Conversación actualizada"
+        },
         "index": {
             "create": {
                 "name": "Nombre del espacio de trabajo",
@@ -30,7 +74,7 @@
                 "success": "Espacio de trabajo creado",
                 "title": "Nuevo espacio de trabajo"
             },
-            "description": "Elige un espacio de trabajo para ver sus tickets.",
+            "description": "Elige un espacio de trabajo para ver sus conversaciones.",
             "empty": "Aún no perteneces a ningún espacio de trabajo. Crea uno para empezar.",
             "role": "Tu rol: {{role}}",
             "title": "Espacios de trabajo"
@@ -56,36 +100,6 @@
             },
             "title": "Perfil"
         },
-        "ticket": {
-            "author": {
-                "agent": "Agente",
-                "customer": "Cliente"
-            },
-            "back": "Volver a los tickets",
-            "create": {
-                "body": "Mensaje del solicitante",
-                "priority": "Prioridad",
-                "requesterEmail": "Correo del solicitante",
-                "subject": "Asunto",
-                "submit": "Crear ticket",
-                "success": "Ticket creado",
-                "title": "Nuevo ticket"
-            },
-            "field": {
-                "createdAt": "Creado",
-                "priority": "Prioridad",
-                "requester": "Solicitante",
-                "status": "Estado"
-            },
-            "noMessages": "Este ticket no tiene mensajes.",
-            "reply": {
-                "label": "Respuesta",
-                "submit": "Enviar respuesta",
-                "success": "Respuesta enviada"
-            },
-            "title": "#{{number}} {{subject}}",
-            "updateSuccess": "Ticket actualizado"
-        },
         "workspace": {
             "back": "Todos los espacios de trabajo",
             "column": {
@@ -96,13 +110,13 @@
                 "subject": "Asunto",
                 "updatedAt": "Actualizado"
             },
-            "description": "{{total}} tickets",
-            "empty": "Ningún ticket coincide con este filtro.",
+            "description": "{{total}} conversaciones",
+            "empty": "Ninguna conversación coincide con este filtro.",
             "filter": {
                 "all": "Todos",
                 "label": "Estado"
             },
-            "newTicket": "Nuevo ticket",
+            "newConversation": "Nueva conversación",
             "notFound": "Espacio de trabajo no encontrado"
         }
     },
@@ -116,20 +130,6 @@
         "english": "English",
         "spanish": "Español",
         "switchLabel": "Cambiar idioma"
-    },
-    "ticket": {
-        "priority": {
-            "high": "Alta",
-            "low": "Baja",
-            "normal": "Normal",
-            "urgent": "Urgente"
-        },
-        "status": {
-            "closed": "Cerrado",
-            "open": "Abierto",
-            "pending": "Pendiente",
-            "solved": "Resuelto"
-        }
     },
     "workspace": {
         "role": {
