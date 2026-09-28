@@ -21,9 +21,6 @@ paths:
 - The runner records each file's checksum. Never edit an applied migration; add a new one.
 - Update the matching `Database` type in `package/common/src/db` in the same change.
 - MongoDB has no migrations. Indexes are created in `scripts/init-mongo.js`, which runs only on an empty volume; changing it requires `docker compose down -v` locally.
-- Conversation messages moved from `ticket_message` to `conversation_message`, with `ticket_id` renamed to `conversation_id`. `npm run db:backfill-conversation-messages` copies the old documents and creates the new index on an existing volume. It never changes `ticket_message` or overwrites a copied document, so it is safe to re-run; it prints `{"source":N,"copied":N,"alreadyPresent":N,"missing":N}` and exits non-zero while `missing` is not 0.
-- After the backfill, `npm run db:drop-ticket-messages` drops `ticket_message`. It first checks that every `_id` in it has a document in `conversation_message`; if not, it prints `missing: N` and up to 10 of those `_id`s, drops nothing and exits non-zero. It prints `{"dropped":true,"documents":N}` after a drop and `{"dropped":false,"reason":"absent"}` when the collection is already gone, so it is safe to re-run. Both scripts go away in #13.
-
 ## CI and hooks
 - `.github/workflows/ci.yml` runs the same checks as the pre-commit hook. Keep the two lists identical.
 - Pin every third-party action to a full commit SHA with the release in a comment, and keep workflow `permissions` at the minimum.

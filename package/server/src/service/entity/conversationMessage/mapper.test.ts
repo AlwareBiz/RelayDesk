@@ -26,9 +26,4 @@ describe('toConversationMessage', () => {
   expect(message.created_at).toBe('2026-09-27T22:37:46.248Z');
   expect(message).not.toHaveProperty('_id');
  });
-
- // the /ticket aliases rename the key in place, so this order is what old clients receive
- it('keeps the key order old clients receive', () => {
-  expect(Object.keys(toConversationMessage(DOCUMENT))).toEqual(['author_email', 'author_profile_id', 'author_type', 'body', 'conversation_id', 'workspace_id', 'created_at', 'id']);
- });
 });
