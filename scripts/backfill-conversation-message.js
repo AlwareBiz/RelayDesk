@@ -1,6 +1,6 @@
 // copies every ticket_message document into conversation_message, renaming ticket_id to conversation_id
 // runs in mongosh (`npm run db:backfill-conversation-messages`); additive and safe to re-run: it never
-// changes ticket_message and never overwrites a conversation_message document; removed in #12
+// changes ticket_message and never overwrites a conversation_message document; removed in #13
 // prints the report last, as a JSON line of its own, {"source":N,"copied":N,"alreadyPresent":N,"missing":N},
 // and exits 1 if missing is not 0 or the run fails
 
@@ -65,7 +65,8 @@ const countMissing = () => {
 };
 
 // == Main ========================================================================
-// one function, so mongosh has no statement result to echo and the report is the only output
+// one function, so mongosh has no statement result to echo; piped through stdin it still echoes a prompt
+// for every input line, so the report starts with a newline to keep it on a line of its own
 const backfill = () => {
  db.conversation_message.createIndex({ workspace_id: 1, conversation_id: 1, created_at: 1 });
 
@@ -94,7 +95,6 @@ const backfill = () => {
  copy();
 
  report.missing = countMissing();
- // piped through stdin, mongosh echoes a prompt for every input line; the newline keeps the report on a line of its own
  print(`\n${JSON.stringify(report)}`);
  if (report.missing !== 0) {
   quit(1);
