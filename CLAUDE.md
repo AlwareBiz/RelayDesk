@@ -81,11 +81,14 @@ Instructions are guidance; these are checked on every commit and in CI.
 | `await` instead of promise chains             | `promise/prefer-await-to-then`                                |
 | Unique log IDs                                | `npm run sync:log-uuids` (pre-commit), `check:log-uuids` (CI) |
 | Exact dependency versions                     | `npm run check:pinned-deps`                                   |
+| Agents never read or edit `.env` files        | `.claude/settings.json` permission rules                      |
 | Same keys in `en.json` and `es.json`          | `npm test` (`dictionary.test.ts`)                             |
 
 When a new convention can be checked by a tool, add the check instead of more prose here.
 
 ## Rules and skills
+
+`.claude/settings.json` holds the shared agent permissions: the check commands run without prompting, and `.env` files are off limits. `AGENTS.md` points agents that do not read this file back to it.
 
 | Rule (`.claude/rules/`) | Loads for                                           |
 |-------------------------|-----------------------------------------------------|

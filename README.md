@@ -15,3 +15,4 @@ Humans and agents read the same instructions, so each lives in one place:
 | See the conventions for one part of the code | [`.claude/rules/`](.claude/rules)                                            |
 | Follow a recurring procedure                 | [`.claude/skills/`](.claude/skills)                                          |
 | Open a pull request                          | [`.github/pull_request_template.md`](.github/pull_request_template.md)       |
+| Use a coding agent other than Claude Code    | [`AGENTS.md`](AGENTS.md)                                                     |
