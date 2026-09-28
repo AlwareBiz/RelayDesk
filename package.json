@@ -16,6 +16,7 @@
   "check:log-uuids": "node scripts/sync-log-uuids.mjs --check",
   "check:pinned-deps": "node scripts/check-pinned-dependencies.mjs",
   "clean": "rm -rf package/*/dist node_modules",
+  "db:backfill-conversation-messages": "docker compose exec -T mongo mongosh --quiet relaydesk < scripts/backfill-conversation-message.js",
   "db:cleanup-logs": "docker compose run --rm --entrypoint bash migrate /app/scripts/cleanup-logs.sh",
   "db:migrate": "docker compose run --rm migrate",
   "dev:frontend": "npm run dev -w package/frontend",

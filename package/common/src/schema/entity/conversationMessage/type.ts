@@ -11,14 +11,18 @@ export type ConversationMessageDocument = {
  author_profile_id: string | null;
  author_type: ConversationMessageAuthorType;
  body: string;
+ conversation_id: string;
  created_at: Date;
- ticket_id: string; // stored name, renamed to conversation_id in #11
  workspace_id: string;
 };
 
+/** a message as stored before the rename, in the collection named by `legacyTicketMessageCollection`; read only by the dual read, removed in #12 */
+export type LegacyTicketMessageDocument = Omit<ConversationMessageDocument, 'conversation_id'> & {
+ ticket_id: string;
+};
+
 /** a message as exposed through the API */
-export type ConversationMessage = Omit<ConversationMessageDocument, '_id' | 'created_at' | 'ticket_id'> & { // stored field, renamed to conversation_id in #11
- conversation_id: string;
+export type ConversationMessage = Omit<ConversationMessageDocument, '_id' | 'created_at'> & {
  created_at: string;
  id: string;
 };

@@ -21,14 +21,15 @@ describe('MongoConversationMessageLifecycle', () => {
  });
 
  describe('create', () => {
-  // documents written under the new name would be invisible to every reader until #11
-  it('stores the conversation id in the ticket_id field of the ticket_message collection', async () => {
+  it('inserts only into conversation_message, with conversation_id', async () => {
    await conversationMessageLifecycle.create({ author_email: 'jane@example.com', author_profile_id: null, author_type: 'customer', body: 'Hi', conversation_id: CONVERSATION_ID, workspace_id: WORKSPACE_ID });
 
+   expect(mongoDb.collection).toHaveBeenCalledTimes(1);
    expect(mongoDb.collection).toHaveBeenCalledWith(conversationMessageCollection);
+   expect(conversationMessageCollection).toBe('conversation_message');
    const document = insertOne.mock.calls[0]?.[0] as Record<string, unknown>;
-   expect(document.ticket_id).toBe(CONVERSATION_ID);
-   expect(document).not.toHaveProperty('conversation_id');
+   expect(document.conversation_id).toBe(CONVERSATION_ID);
+   expect(document).not.toHaveProperty('ticket_id');
    expect(document.workspace_id).toBe(WORKSPACE_ID);
   });
 
