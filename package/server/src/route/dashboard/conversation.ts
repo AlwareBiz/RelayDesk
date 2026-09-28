@@ -19,7 +19,6 @@ import type { WorkspaceRequest } from '../../type';
 const conversationIdSchema = yup.string().uuid().required();
 
 // == Handler =====================================================================
-// exported so the `/ticket` aliases in `legacyTicket.ts` run exactly these handlers
 export const createConversation = async (req: WorkspaceRequest, res: Response): Promise<void> => {
  let input: yup.InferType<typeof createConversationSchema>;
  try {

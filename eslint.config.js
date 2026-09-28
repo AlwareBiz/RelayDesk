@@ -28,8 +28,8 @@ export default tseslint.config(
   languageOptions: { globals: { console: 'readonly', process: 'readonly' } },
  },
  {
-  // run inside mongosh: when the Mongo container initializes, and by db:backfill-conversation-messages and db:drop-ticket-messages
-  files: ['scripts/backfill-conversation-message.js', 'scripts/drop-ticket-message.js', 'scripts/init-mongo.js'],
+  // runs inside mongosh when the Mongo container initializes
+  files: ['scripts/init-mongo.js'],
   languageOptions: { globals: { db: 'readonly', print: 'readonly', quit: 'readonly' } },
  },
  { ignores: ['**/dist/**', '**/node_modules/**', '**/.terraform/**'] },

@@ -18,12 +18,6 @@ export const backendRoutes = {
     message: '/api/dashboard/workspace/:workspaceId/conversation/:conversationId/message',
    },
    index: '/api/dashboard/workspace',
-   // compatibility aliases for clients built before the rename, removed in #13
-   legacyTicket: {
-    detail: '/api/dashboard/workspace/:workspaceId/ticket/:conversationId',
-    index: '/api/dashboard/workspace/:workspaceId/ticket',
-    message: '/api/dashboard/workspace/:workspaceId/ticket/:conversationId/message',
-   },
   },
  },
  health: '/api/health',
