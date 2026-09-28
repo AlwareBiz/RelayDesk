@@ -29,10 +29,10 @@ A list that claims to be complete (every place a name is used, every caller, eve
 - "How to verify" gives the steps and data a reviewer uses, and the evidence that shows the result: a before/after script when there is no UI, and the text a headless browser reads from the page when there is.
 - Ask only for evidence the implementing agent can produce and post from the command line. `gh` cannot attach images or videos to an issue or pull request, so when a screenshot or video is needed, say who takes it and attaches it.
 - Every step runs as written on a fresh clone. Say where its configuration comes from. A server started outside `npm run dev:server`, such as an older build in a worktree, reads `package/server/.env.example`: `APP_PORT=5175 node --env-file=package/server/.env.example package/server/dist/index.js`. Never tell anyone to copy `.env`.
-- Verification never destroys data the engineer keeps, and never leaves test data behind:
+- Verification never destroys or corrupts data the engineer keeps. Seed test data through the app in workspaces created for the check, and:
   - no `docker compose down -v`: check what a fresh volume gets in a throwaway container that mounts the init script and is removed when stopped (`docker run --rm`);
   - test failures and destructive steps in a scratch database (`CREATE DATABASE <name> TEMPLATE relaydesk` with the servers stopped, dropped afterwards);
-  - run statements that write test rows inside a transaction that rolls back.
+  - run SQL that writes rows by hand inside a transaction that rolls back, since it bypasses the app's rules (a hand-written conversation number collides with a later one).
 
 ## 4. Size the work
 - One task is one pull request that a human can review in one sitting and revert on its own.
