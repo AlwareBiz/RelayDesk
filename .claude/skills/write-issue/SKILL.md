@@ -21,10 +21,13 @@ Settle each section with the engineer before writing criteria. Ask one topic at 
 - **Dependencies:** the code, tables, collections, jobs and other issues the work needs. An open issue that must merge first is a blocker.
 - **Constraints:** workspace isolation, member roles, limits, compatibility with existing data, and the missing transaction across the two stores.
 
+A list that claims to be complete (every place a name is used, every caller, every stored name) comes from a search, never from reading. Search by object, not by file: every reference to table X, column Y or collection Z. Put the command next to the list so the implementer can run it again. A list built by reading says it may be incomplete.
+
 ## 3. Write checkable criteria
 - Each acceptance criterion is behavior someone can observe with a command, a request or a UI step, with the expected result.
 - Push back on criteria nobody can check. Rewrite "fast" as a measured limit on stated data, and "works well" as the behaviors it stands for. When the engineer cannot say what would make a criterion true, it is not ready.
-- "How to verify" gives the steps and data a reviewer uses, including how to show the result: a before/after script when there is no UI, screenshots or a video when there is.
+- "How to verify" gives the steps and data a reviewer uses, and the evidence that shows the result: a before/after script when there is no UI, and the text a headless browser reads from the page when there is.
+- Ask only for evidence the implementing agent can produce and post from the command line. `gh` cannot attach images or videos to an issue or pull request, so when a screenshot or video is needed, say who takes it and attaches it.
 
 ## 4. Size the work
 - One task is one pull request that a human can review in one sitting and revert on its own.

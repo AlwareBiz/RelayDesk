@@ -62,7 +62,7 @@ body:
    validations:
     required: true
  - attributes:
-    description: The end-to-end check a reviewer runs once every sub-issue is closed, with the expected result.
+    description: The end-to-end check a reviewer runs once every sub-issue is closed, with the expected result. Ask only for evidence an agent can produce from the command line, or say who attaches screenshots or video.
     label: How to verify
    id: how-to-verify
    type: textarea
