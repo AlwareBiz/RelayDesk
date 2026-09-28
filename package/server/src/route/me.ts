@@ -16,6 +16,7 @@ meRouter.get(backendRoutes.me, authenticateUser, async (req: AuthenticatedReques
  if (!profile) {
   res.status(ResponseStatus.NotFound).json({ message: 'Profile not found' });
   return;
- }
+ } /* else -- the profile exists */
+
  res.status(ResponseStatus.Ok).json({ id: profile.id, email: profile.email });
 });

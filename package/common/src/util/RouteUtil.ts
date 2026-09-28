@@ -5,7 +5,10 @@ export const RouteUtil = {
  fill(path: string, params: Record<string, string>): string {
   return path.replace(/:([A-Za-z]+)/g, (segment, name: string) => {
    const value = params[name];
-   if (value === undefined) throw new Error(`Missing route param: ${name}`);
+   if (value === undefined) {
+    throw new Error(`Missing route param: ${name}`);
+   } /* else -- the caller supplied this param */
+
    return encodeURIComponent(value);
   });
  },

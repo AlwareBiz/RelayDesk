@@ -74,12 +74,18 @@ dashboardTicketRouter.post(backendRoutes.dashboard.workspace.ticket.index, authe
 // fetch a specific ticket within a workspace
 dashboardTicketRouter.get(backendRoutes.dashboard.workspace.ticket.detail, authenticateUser, requireWorkspaceMember, async (req: WorkspaceRequest, res) => {
  const ticketId = req.params.ticketId;
- if (!ticketIdSchema.isValidSync(ticketId)) { respondTicketNotFound(res); return; }
+ if (!ticketIdSchema.isValidSync(ticketId)) {
+  respondTicketNotFound(res);
+  return;
+ } /* else -- the ticket id is well formed */
 
  try {
   const workspaceId = workspaceIdOf(req);
   const ticket = await ticketFinder.findById(workspaceId, ticketId);
-  if (!ticket) { respondTicketNotFound(res); return; }
+  if (!ticket) {
+   respondTicketNotFound(res);
+   return;
+  } /* else -- the ticket belongs to this workspace */
 
   const data: FetchTicketResponseData = { messages: await ticketMessageFinder.listForTicket(workspaceId, ticket.id), ticket };
   res.status(ResponseStatus.Ok).json(data);
@@ -92,7 +98,10 @@ dashboardTicketRouter.get(backendRoutes.dashboard.workspace.ticket.detail, authe
 // update a specific ticket within a workspace
 dashboardTicketRouter.patch(backendRoutes.dashboard.workspace.ticket.detail, authenticateUser, requireWorkspaceMember, async (req: WorkspaceRequest, res) => {
  const ticketId = req.params.ticketId;
- if (!ticketIdSchema.isValidSync(ticketId)) { respondTicketNotFound(res); return; }
+ if (!ticketIdSchema.isValidSync(ticketId)) {
+  respondTicketNotFound(res);
+  return;
+ } /* else -- the ticket id is well formed */
 
  let patch: yup.InferType<typeof updateTicketSchema>;
  try {
@@ -107,10 +116,13 @@ dashboardTicketRouter.patch(backendRoutes.dashboard.workspace.ticket.detail, aut
   if (patch.assignee_profile_id && !(await workspaceMemberFinder.find(workspaceId, patch.assignee_profile_id))) {
    res.status(ResponseStatus.BadRequest).json({ message: 'The assignee is not a member of this workspace' });
    return;
-  }
+  } /* else -- the ticket stays unassigned or goes to a member */
 
   const ticket = await ticketLifecycle.update(workspaceId, ticketId, patch);
-  if (!ticket) { respondTicketNotFound(res); return; }
+  if (!ticket) {
+   respondTicketNotFound(res);
+   return;
+  } /* else -- the ticket belongs to this workspace */
 
   const data: UpdateTicketResponseData = { ticket };
   res.status(ResponseStatus.Ok).json(data);
@@ -123,7 +135,10 @@ dashboardTicketRouter.patch(backendRoutes.dashboard.workspace.ticket.detail, aut
 // post a new message to a specific ticket within a workspace
 dashboardTicketRouter.post(backendRoutes.dashboard.workspace.ticket.message, authenticateUser, requireWorkspaceMember, async (req: WorkspaceRequest, res) => {
  const ticketId = req.params.ticketId;
- if (!ticketIdSchema.isValidSync(ticketId)) { respondTicketNotFound(res); return; }
+ if (!ticketIdSchema.isValidSync(ticketId)) {
+  respondTicketNotFound(res);
+  return;
+ } /* else -- the ticket id is well formed */
 
  let body: string;
  try {
@@ -136,13 +151,16 @@ dashboardTicketRouter.post(backendRoutes.dashboard.workspace.ticket.message, aut
  try {
   const workspaceId = workspaceIdOf(req);
   const ticket = await ticketFinder.findById(workspaceId, ticketId);
-  if (!ticket) { respondTicketNotFound(res); return; }
+  if (!ticket) {
+   respondTicketNotFound(res);
+   return;
+  } /* else -- the ticket belongs to this workspace */
 
   const profile = await profileFinder.findById(req.user?.sub ?? '');
   if (!profile) {
    res.status(ResponseStatus.NotFound).json({ message: 'Profile not found' });
    return;
-  }
+  } /* else -- the reply has an author */
 
   const message = await ticketMessageLifecycle.create({
    author_email: profile.email,
@@ -167,6 +185,9 @@ const respondTicketNotFound = (res: Response): void => {
 
 /** `requireWorkspaceMember` guarantees the membership, so its workspace id is the validated one */
 const workspaceIdOf = (req: WorkspaceRequest): string => {
- if (!req.workspaceMember) throw new Error('requireWorkspaceMember must run before this handler');
+ if (!req.workspaceMember) {
+  throw new Error('requireWorkspaceMember must run before this handler');
+ } /* else -- the middleware validated the workspace */
+
  return req.workspaceMember.workspace_id;
 };

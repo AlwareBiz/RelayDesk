@@ -52,11 +52,11 @@ export const commonTranslationFunctionality = (
   let translation = getTranslationFromData(languageData, tokens) ?? getTranslationFromData(FALLBACK_LANGUAGE_DATA as LocaleData, tokens);
   if (!translation) {
     return path;
-  }
+  } /* else -- a translation exists for this key */
 
   if (!replacement) {
     return translation;
-  }
+  } /* else -- the translation has placeholders to fill */
 
   const replacementKeys = Object.keys(replacement);
   for (let i = 0; i < replacementKeys.length; i += 1) {
@@ -83,7 +83,7 @@ const getTranslationFromData = (data: LocaleData, tokens: string[]): string | un
   for (const token of tokens) {
     if (typeof currentNode === 'string' || currentNode[token] === undefined) {
       return undefined;
-    }
+    } /* else -- the path continues into a nested group */
 
     currentNode = currentNode[token] as LocaleData | string;
   }

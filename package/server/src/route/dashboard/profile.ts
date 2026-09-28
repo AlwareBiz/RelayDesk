@@ -18,7 +18,7 @@ dashboardProfileRouter.get(backendRoutes.dashboard.profile.index, authenticateUs
   if (!profile) {
    res.status(ResponseStatus.NotFound).json({ message: 'Profile not found' });
    return;
-  }
+  } /* else -- the profile exists */
 
   const data: FetchCurrentProfileResponseData = {
    profile: { created_at: profile.created_at, email: profile.email, id: profile.id, updated_at: profile.updated_at },

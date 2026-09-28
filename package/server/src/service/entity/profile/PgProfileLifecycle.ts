@@ -13,7 +13,10 @@ export class PgProfileLifecycle implements ProfileLifecycleService {
    [data.email, data.password_hash],
   );
   const row = result.rows[0];
-  if (!row) throw new Error('Expected inserted user row');
+  if (!row) {
+   throw new Error('Expected inserted user row');
+  } /* else -- the insert returned the row */
+
   return row;
  }
 }

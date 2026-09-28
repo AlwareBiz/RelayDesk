@@ -13,24 +13,27 @@
   "build:frontend": "npm run build -w package/common && npm run build -w package/frontend",
   "build:server": "npm run build -w package/common && npm run build -w package/server",
   "check:log-uuids": "node scripts/sync-log-uuids.mjs --check",
+  "check:pinned-deps": "node scripts/check-pinned-dependencies.mjs",
   "clean": "rm -rf package/*/dist node_modules",
   "db:cleanup-logs": "docker compose run --rm --entrypoint bash migrate /app/scripts/cleanup-logs.sh",
   "db:migrate": "docker compose run --rm migrate",
   "dev:frontend": "npm run dev -w package/frontend",
   "dev:server": "npm run dev -w package/server",
-  "lint": "eslint package/",
-  "lint:fix": "eslint package/ --fix",
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix",
   "prepare": "husky",
   "start:server": "node package/server/dist/index.js",
   "sync:log-uuids": "node scripts/sync-log-uuids.mjs",
-  "test": "npm run test --workspaces --if-present",
+  "test": "vitest run",
   "typecheck": "tsc -b && npm run typecheck -w package/frontend"
  },
  "devDependencies": {
   "@eslint/js": "9.39.5",
   "eslint": "9.39.5",
+  "eslint-plugin-promise": "7.3.0",
   "husky": "9.1.7",
   "typescript": "5.9.3",
-  "typescript-eslint": "8.64.0"
+  "typescript-eslint": "8.64.0",
+  "vitest": "5.0.2"
  }
 }
