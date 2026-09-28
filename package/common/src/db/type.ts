@@ -10,15 +10,15 @@ import type { WorkspaceMemberTableTypes } from './table/workspaceMember';
 export type Database = {
  public: {
   Enums: {
+   conversation_priority: ConversationPriorityEnum;
+   conversation_status: ConversationStatusEnum;
    log_level: LogLevelEnum;
-   ticket_priority: ConversationPriorityEnum; // stored name, renamed to conversation_priority in #10
-   ticket_status: ConversationStatusEnum; // stored name, renamed to conversation_status in #10
    workspace_role: WorkspaceRoleEnum;
   };
   Tables: {
+   conversation: ConversationTableTypes;
    log: LogTableTypes;
    profile: ProfileTableTypes;
-   ticket: ConversationTableTypes; // stored name, renamed to conversation in #10
    workspace: WorkspaceTableTypes;
    workspace_member: WorkspaceMemberTableTypes;
   };

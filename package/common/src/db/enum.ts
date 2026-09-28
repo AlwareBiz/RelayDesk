@@ -8,8 +8,8 @@ export type ConversationStatusEnum = 'open' | 'pending' | 'solved' | 'closed';
 export type WorkspaceRoleEnum = 'owner' | 'admin' | 'agent';
 
 export type DatabaseEnums = {
+ conversation_priority: ConversationPriorityEnum;
+ conversation_status: ConversationStatusEnum;
  log_level: LogLevelEnum;
- ticket_priority: ConversationPriorityEnum; // stored name, renamed to conversation_priority in #10
- ticket_status: ConversationStatusEnum; // stored name, renamed to conversation_status in #10
  workspace_role: WorkspaceRoleEnum;
 };

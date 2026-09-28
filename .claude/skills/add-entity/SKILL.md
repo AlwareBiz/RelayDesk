@@ -5,7 +5,7 @@ description: Add a new database-backed entity to RelayDesk end to end, either a 
 
 # Add an entity
 
-Pick the store first. Relational data that other rows reference, filter or join on (workspaces, conversations, assignments) goes in **PostgreSQL**. Document data that is read as a whole, grows over time, or varies in shape (a conversation's messages, raw inbound payloads, activity timelines) goes in **MongoDB**. Conversations and conversation messages are the reference examples of each; they are stored as `ticket` (renamed in #10) and `ticket_message` (renamed in #11).
+Pick the store first. Relational data that other rows reference, filter or join on (workspaces, conversations, assignments) goes in **PostgreSQL**. Document data that is read as a whole, grows over time, or varies in shape (a conversation's messages, raw inbound payloads, activity timelines) goes in **MongoDB**. Conversations and conversation messages are the reference examples of each; they are stored as `conversation` and `ticket_message` (renamed in #11).
 
 Replace `widget` / `Widget` below with the entity name.
 

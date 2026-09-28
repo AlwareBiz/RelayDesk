@@ -13,19 +13,18 @@ export class PgConversationLifecycle implements ConversationLifecycleService {
   try {
    await client.query('BEGIN');
    // the row lock on the workspace serializes concurrent conversation creation, so numbers never collide
-   // `ticket_counter` is the stored name, renamed to conversation_counter in #10
-   const counterResult = await client.query<{ ticket_counter: number }>(
-    `UPDATE ${workspaceTable} SET ${workspaceColumns.ticket_counter} = ${workspaceColumns.ticket_counter} + 1 WHERE ${workspaceColumns.id} = $1 RETURNING ${workspaceColumns.ticket_counter}`,
+   const counterResult = await client.query<{ conversation_counter: number }>(
+    `UPDATE ${workspaceTable} SET ${workspaceColumns.conversation_counter} = ${workspaceColumns.conversation_counter} + 1 WHERE ${workspaceColumns.id} = $1 RETURNING ${workspaceColumns.conversation_counter}`,
     [data.workspace_id],
    );
-   const number = counterResult.rows[0]?.ticket_counter;
+   const number = counterResult.rows[0]?.conversation_counter;
    if (number === undefined) {
     throw new Error('Workspace not found while allocating a conversation number');
    } /* else -- the workspace reserved the next number */
 
    const result = await client.query<Conversation>(
     `INSERT INTO ${conversationTable} (${conversationColumns.workspace_id}, ${conversationColumns.number}, ${conversationColumns.subject}, ${conversationColumns.requester_email}, ${conversationColumns.priority}, ${conversationColumns.assignee_profile_id})
-     VALUES ($1, $2, $3, $4, COALESCE($5, 'normal'::ticket_priority), $6) RETURNING *`, // stored enum name, renamed to conversation_priority in #10
+     VALUES ($1, $2, $3, $4, COALESCE($5, 'normal'::conversation_priority), $6) RETURNING *`,
     [data.workspace_id, number, data.subject, data.requester_email, data.priority ?? null, data.assignee_profile_id ?? null],
    );
    await client.query('COMMIT');

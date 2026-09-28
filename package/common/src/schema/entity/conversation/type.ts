@@ -8,8 +8,8 @@ export type ConversationInsert = Database['public']['Tables'][typeof conversatio
 export type ConversationUpdate = Database['public']['Tables'][typeof conversationTable]['Update'];
 
 // == Enum ========================================================================
-export type ConversationPriority = Database['public']['Enums']['ticket_priority']; // stored name, renamed to conversation_priority in #10
-export type ConversationStatus = Database['public']['Enums']['ticket_status']; // stored name, renamed to conversation_status in #10
+export type ConversationPriority = Database['public']['Enums']['conversation_priority'];
+export type ConversationStatus = Database['public']['Enums']['conversation_status'];
 
 // == Constant ====================================================================
 export const conversationPriorities: { [key in ConversationPriority]: key } = {
