@@ -62,7 +62,7 @@ body:
    validations:
     required: true
  - attributes:
-    description: Steps a reviewer runs, with commands and data, and the expected result of each.
+    description: Steps a reviewer runs, with commands and data, and the expected result of each. Ask only for evidence an agent can produce from the command line, or say who attaches screenshots or video.
     label: How to verify
    id: how-to-verify
    type: textarea

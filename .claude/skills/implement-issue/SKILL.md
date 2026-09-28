@@ -36,7 +36,9 @@ Then stop and tell the engineer the plan is posted. Write no code until the engi
 4. Follow `CLAUDE.md` and the rules that load for each file. Run the checks from `CLAUDE.md` before finishing.
 
 ## 5. Verify
-Run every step of "How to verify" and keep the output. Show each acceptance criterion met: command output, a before/after comparison with `main`, or screenshots for UI changes.
+Run every step of "How to verify" and keep the output. Show each acceptance criterion met: command output, a before/after comparison with `main`, or the text a headless browser reads from the page for UI changes.
+
+If the issue asks for evidence you cannot produce or attach, such as screenshots (`gh` cannot upload images), say so under Testing, give the closest evidence you can, and report it as an issue gap (step 7).
 
 ## 6. Open the pull request
 Open it with `gh pr create`, following `.github/pull_request_template.md`. The first line is `Closes #<number>`. Put the verification output under Testing, and say which feature flag, if any, the change sits behind and what state the flag must be in to see it.
