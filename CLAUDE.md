@@ -14,7 +14,7 @@ A multi-tenant customer-support helpdesk. Teams create workspaces, log customer 
 | `docs/decisions`   | Decision records that later work must follow.                                                     |
 | `scripts`          | Migration runner, log-ID sync, dependency pin check, issue format check, Mongo init.              |
 
-Data lives in two stores. PostgreSQL holds relational data: profiles, workspaces, members, conversations, logs. MongoDB holds document data: a conversation's messages, in the `ticket_message` collection (renamed to `conversation_message` in #11). There is no transaction across the two stores.
+Data lives in two stores. PostgreSQL holds relational data: profiles, workspaces, members, conversations, logs. MongoDB holds document data: a conversation's messages, in the `conversation_message` collection. Until #12 the server also reads messages written before the rename from `ticket_message`, and `npm run db:backfill-conversation-messages` copies them over. There is no transaction across the two stores.
 
 ## Commands
 
@@ -23,6 +23,7 @@ Data lives in two stores. PostgreSQL holds relational data: profiles, workspaces
 | Install                              | `npm install`                                                                                           |
 | Start databases                      | `docker compose up -d postgres mongo`                                                                   |
 | Apply migrations                     | `npm run db:migrate`                                                                                    |
+| Copy old messages (until #12)        | `npm run db:backfill-conversation-messages`                                                             |
 | Run API and web app                  | `npm run dev:server` and `npm run dev:frontend`                                                         |
 | Check everything CI checks           | `npm run check:pinned-deps && npm run check:log-uuids && npm run lint && npm run typecheck && npm test` |
 | Fix lint and import formatting       | `npm run lint:fix`                                                                                      |
