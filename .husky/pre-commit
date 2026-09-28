@@ -1,4 +1,5 @@
 npm run sync:log-uuids -- --stage
+npm run check:pinned-deps
 npm run lint:fix
 npm run typecheck
-npm test --workspaces --if-present
+npm test

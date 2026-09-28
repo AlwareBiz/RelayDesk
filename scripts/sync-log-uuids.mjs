@@ -23,23 +23,31 @@ const main = () => {
  for (const filePath of getTrackedSourceFiles()) {
   const value = readFileSync(filePath, 'utf8');
   const edits = planFileEdits(value, usedIds);
-  if (edits.length > 0) changes.push({ filePath, edits, value });
+  if (edits.length > 0) {
+   changes.push({ filePath, edits, value });
+  } /* else -- every log in this file already has a unique id */
  }
 
  const totalEdits = changes.reduce((count, file) => count + file.edits.length, 0);
  if (totalEdits === 0) {
   console.log('#639cdfe8 Log UUID prefixes are already unique.');
   return;
- }
+ } /* else -- some logs need a new id */
 
  if (isCheckMode) {
   console.error(`#0d187a64 Found ${totalEdits} log UUID issue(s) across ${changes.length} file(s).`);
   process.exitCode = 1;
   return;
+ } /* else -- fix mode: rewrite the files */
+
+ for (const file of changes) {
+  writeFileSync(file.filePath, applyEdits(file.value, file.edits), 'utf8');
  }
 
- for (const file of changes) writeFileSync(file.filePath, applyEdits(file.value, file.edits), 'utf8');
- if (isStageMode) stageFiles(changes.map((file) => file.filePath));
+ if (isStageMode) {
+  stageFiles(changes.map((file) => file.filePath));
+ } /* else -- leave the edits unstaged */
+
  console.log(`#877c31cb Updated ${totalEdits} log UUID issue(s) across ${changes.length} file(s).`);
 };
 
@@ -66,16 +74,33 @@ const planFileEdits = (value, usedIds) => {
  while (cursor < value.length) {
   const character = value[cursor];
   const nextCharacter = value[cursor + 1];
-  if (character === '\'' || character === '"' || character === '`') { cursor = skipString(value, cursor, character); continue; }
-  if (character === '/' && nextCharacter === '/') { cursor = skipLineComment(value, cursor); continue; }
-  if (character === '/' && nextCharacter === '*') { cursor = skipBlockComment(value, cursor); continue; }
+  if (character === '\'' || character === '"' || character === '`') {
+   cursor = skipString(value, cursor, character);
+   continue;
+  } /* else -- not inside a string literal */
+
+  if (character === '/' && nextCharacter === '/') {
+   cursor = skipLineComment(value, cursor);
+   continue;
+  } /* else -- not a line comment */
+
+  if (character === '/' && nextCharacter === '*') {
+   cursor = skipBlockComment(value, cursor);
+   continue;
+  } /* else -- not a block comment */
 
   const match = value.slice(cursor).match(/^(?:console|logger)\.(log|info|warn|error|debug|trace|fatal)\s*\(/u);
-  if (!match) { cursor += 1; continue; }
+  if (!match) {
+   cursor += 1;
+   continue;
+  } /* else -- a log call starts here */
 
   const openParen = cursor + match[0].lastIndexOf('(');
   const argumentStart = skipWhitespace(value, openParen + 1);
-  if (value[argumentStart] === ')') { cursor = argumentStart + 1; continue; }
+  if (value[argumentStart] === ')') {
+   cursor = argumentStart + 1;
+   continue;
+  } /* else -- the call has arguments */
 
   const firstCharacter = value[argumentStart];
   if (firstCharacter === '\'' || firstCharacter === '"' || firstCharacter === '`') {
@@ -95,7 +120,7 @@ const planFileEdits = (value, usedIds) => {
    }
    cursor = argumentEnd;
    continue;
-  }
+  } /* else -- the first argument is not a string, so prepend one */
 
   const id = buildUniqueId(usedIds);
   usedIds.add(id);
@@ -109,8 +134,15 @@ const planFileEdits = (value, usedIds) => {
 const skipString = (value, index, quote) => {
  let cursor = index + 1;
  while (cursor < value.length) {
-  if (value[cursor] === '\\') { cursor += 2; continue; }
-  if (value[cursor] === quote) return cursor + 1;
+  if (value[cursor] === '\\') {
+   cursor += 2;
+   continue;
+  } /* else -- not an escape sequence */
+
+  if (value[cursor] === quote) {
+   return cursor + 1;
+  } /* else -- still inside the string */
+
   cursor += 1;
  }
  return value.length;

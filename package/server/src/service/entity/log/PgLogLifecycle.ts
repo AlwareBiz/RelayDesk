@@ -11,7 +11,10 @@ export class PgLogLifecycle implements LogLifecycleService {
    [data.content, data.log_level],
   );
   const row = result.rows[0];
-  if (!row) throw new Error('Expected inserted log row');
+  if (!row) {
+   throw new Error('Expected inserted log row');
+  } /* else -- the insert returned the row */
+
   return row;
  }
 }

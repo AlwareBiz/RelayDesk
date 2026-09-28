@@ -14,7 +14,9 @@ export class PgWorkspaceLifecycle implements WorkspaceLifecycleService {
     [data.name],
    );
    const workspace = result.rows[0];
-   if (!workspace) throw new Error('Expected inserted workspace row');
+   if (!workspace) {
+    throw new Error('Expected inserted workspace row');
+   } /* else -- the insert returned the row */
 
    await client.query(
     `INSERT INTO ${workspaceMemberTable} (${workspaceMemberColumns.workspace_id}, ${workspaceMemberColumns.profile_id}, ${workspaceMemberColumns.role}) VALUES ($1, $2, $3)`,

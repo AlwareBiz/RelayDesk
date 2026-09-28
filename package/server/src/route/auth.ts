@@ -32,7 +32,7 @@ authRouter.post(backendRoutes.auth.login, async (req: Request, res: Response): P
    logger.warn(`#36e35814 [auth] login failed: ${email}`);
    res.status(ResponseStatus.Unauthorized).json({ message: 'Invalid email or password' });
    return;
-  }
+  } /* else -- the credentials are valid */
 
   logger.info(`#96feb077 [auth] login success: ${profile.id}`);
   issueSession(res, profile.id);

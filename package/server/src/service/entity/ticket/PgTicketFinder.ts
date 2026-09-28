@@ -19,7 +19,7 @@ export class PgTicketFinder implements TicketFinderService {
   if (query.status) {
    params.push(query.status);
    where += ` AND ${ticketColumns.status} = $${params.length}`;
-  }
+  } /* else -- list tickets in every status */
 
   const countResult = await pgPool.query<{ count: string }>(`SELECT count(*) FROM ${ticketTable} WHERE ${where}`, params);
   const result = await pgPool.query<Ticket>(

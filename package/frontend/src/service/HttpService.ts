@@ -19,8 +19,13 @@ const execute = async <T>(method: RequestMethod, path: string, body?: object, ex
   method,
  });
 
- if (!response.ok) throw new Error(await getErrorMessage(response));
- if (response.status === ResponseStatus.NoContent) return undefined as T;
+ if (!response.ok) {
+  throw new Error(await getErrorMessage(response));
+ } /* else -- the request succeeded */
+
+ if (response.status === ResponseStatus.NoContent) {
+  return undefined as T;
+ } /* else -- the response carries a JSON body */
  return response.json() as Promise<T>;
 };
 

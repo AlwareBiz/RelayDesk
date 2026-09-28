@@ -1,5 +1,5 @@
 export type TableTypes<Row, OptionalOnInsert extends keyof Row> = {
- Row: Row;
  Insert: Omit<Row, OptionalOnInsert> & Partial<Pick<Row, OptionalOnInsert>>;
+ Row: Row;
  Update: Partial<Row>;
 };

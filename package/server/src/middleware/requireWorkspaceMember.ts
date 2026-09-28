@@ -18,14 +18,14 @@ export const requireWorkspaceMember = async (req: WorkspaceRequest, res: Respons
  if (!workspaceIdSchema.isValidSync(workspaceId)) {
   res.status(ResponseStatus.NotFound).json({ message: 'Workspace not found' });
   return;
- }
+ } /* else -- the id is well formed */
 
  try {
   const member = await workspaceMemberFinder.find(workspaceId, req.user?.sub ?? '');
   if (!member) {
    res.status(ResponseStatus.NotFound).json({ message: 'Workspace not found' });
    return;
-  }
+  } /* else -- the profile belongs to this workspace */
 
   req.workspaceMember = member;
   next();

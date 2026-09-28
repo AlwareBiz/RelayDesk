@@ -18,7 +18,9 @@ export class PgTicketLifecycle implements TicketLifecycleService {
     [data.workspace_id],
    );
    const number = counterResult.rows[0]?.ticket_counter;
-   if (number === undefined) throw new Error('Workspace not found while allocating a ticket number');
+   if (number === undefined) {
+    throw new Error('Workspace not found while allocating a ticket number');
+   } /* else -- the workspace reserved the next number */
 
    const result = await client.query<Ticket>(
     `INSERT INTO ${ticketTable} (${ticketColumns.workspace_id}, ${ticketColumns.number}, ${ticketColumns.subject}, ${ticketColumns.requester_email}, ${ticketColumns.priority}, ${ticketColumns.assignee_profile_id})
@@ -28,7 +30,10 @@ export class PgTicketLifecycle implements TicketLifecycleService {
    await client.query('COMMIT');
 
    const ticket = result.rows[0];
-   if (!ticket) throw new Error('Expected inserted ticket row');
+   if (!ticket) {
+    throw new Error('Expected inserted ticket row');
+   } /* else -- the insert returned the row */
+
    return ticket;
   } catch (error) {
    await client.query('ROLLBACK');
@@ -42,7 +47,10 @@ export class PgTicketLifecycle implements TicketLifecycleService {
   const assignments: string[] = [];
   const params: unknown[] = [];
   for (const column of patchableColumns) {
-   if (patch[column] === undefined) continue;
+   if (patch[column] === undefined) {
+    continue;
+   } /* else -- the patch changes this column */
+
    params.push(patch[column]);
    assignments.push(`${column} = $${params.length}`);
   }

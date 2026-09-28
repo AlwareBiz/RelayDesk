@@ -9,7 +9,9 @@ import { router } from './router';
 // ********************************************************************************
 // == Setup =======================================================================
 const rootElement = document.getElementById('root');
-if (!rootElement) throw new Error('Root element not found');
+if (!rootElement) {
+ throw new Error('Root element not found');
+} /* else -- index.html provides the mount point */
 
 const queryClient = new QueryClient();
 

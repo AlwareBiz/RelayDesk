@@ -22,14 +22,21 @@ export class DatabaseLogger implements LoggerService {
  }
 
  // -- Util -----------------------------------------------------------------------
+ // a failed insert must never break the request that logged, so errors stop here
+ private async persist(data: LogInsert): Promise<void> {
+  try {
+   await logLifecycle.create(data);
+  } catch (error) {
+   console.error('#7e4796b4 [DatabaseLogger] Insert failed:', error);
+  }
+ }
+
  private write(data: LogInsert): void {
   if (process.env.NODE_ENV !== 'production') {
    console.log(`#c041f3fb [${data.log_level}] ${data.content}`);
-  }
+  } /* else -- production logs only go to the database */
 
-  void logLifecycle.create(data).catch((error: unknown) => {
-   console.error('#7e4796b4 [DatabaseLogger] Insert failed:', error);
-  });
+  void this.persist(data);
  }
 }
 

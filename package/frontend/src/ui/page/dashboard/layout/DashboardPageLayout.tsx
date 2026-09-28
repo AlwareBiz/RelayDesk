@@ -72,7 +72,9 @@ export const DashboardPageLayout = ({ children }: PropsWithChildren) => {
  };
 
  const handleNavigationItemClick = () => {
-  if (!isMdOrBigger) onDrawerClose();
+  if (!isMdOrBigger) {
+   onDrawerClose();
+  } /* else -- the drawer is permanent on wide screens */
  };
 
  // -- UI ------------------------------------------------------------------------

@@ -6,6 +6,7 @@ import { backendRoutes, ResponseStatus } from '@relaydesk/common';
 // == Router ======================================================================
 export const healthRouter = Router();
 
+// report that the API is up
 healthRouter.get(backendRoutes.health, (_req, res) => {
  res.status(ResponseStatus.Ok).json({ ok: true });
 });

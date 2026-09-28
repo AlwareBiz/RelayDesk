@@ -15,7 +15,9 @@ export const singleLineImport = {
 
   return {
    ImportDeclaration(node) {
-    if (node.loc.start.line === node.loc.end.line) return;
+    if (node.loc.start.line === node.loc.end.line) {
+     return;
+    } /* else -- the import spans several lines */
 
     // joining lines would swallow or misplace comments, so those imports are reported without a fix
     const hasComments = sourceCode.getCommentsInside(node).length > 0;

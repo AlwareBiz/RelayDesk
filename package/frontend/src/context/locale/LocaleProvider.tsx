@@ -29,13 +29,13 @@ export const LocaleProvider = ({ children }: PropsWithChildren) => {
   if (localeFromQuery && getLocaleSchema().isValidSync(localeFromQuery)) {
    changeLocale(localeFromQuery as AppLocale);
    return;
-  }
+  } /* else -- the URL does not choose a locale */
 
   const localeFromStorage = localStorage.getItem(LOCALE_STORAGE_ITEM);
   if (localeFromStorage && getLocaleSchema().isValidSync(localeFromStorage)) {
    changeLocale(localeFromStorage as AppLocale);
    return;
-  }
+  } /* else -- no saved preference, use the default */
 
   changeLocale(AppLocale.ES);
  }, []);
