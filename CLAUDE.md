@@ -104,6 +104,10 @@ When a new convention can be checked by a tool, add the check instead of more pr
 | `run-migrations`          | Write, apply and verify a migration locally.                      |
 | `local-setup`             | Get RelayDesk running from a fresh clone, and fix setup problems. |
 
+## Pull requests
+
+Every pull request description follows `.github/pull_request_template.md`: the issue link, Description, Testing, and the AI summary's What and Why. `gh pr create --body` does not fill the template in, so write those sections yourself.
+
 ## Keeping this true
 
 A change that contradicts these instructions updates them in the same pull request. Reviews check that the instructions still match the code.
