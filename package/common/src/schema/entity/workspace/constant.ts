@@ -7,9 +7,9 @@ export const workspaceTable: Extract<keyof Database['public']['Tables'], 'worksp
 
 // == Column ======================================================================
 export const workspaceColumns: { [key in keyof Workspace]: key } = {
+ conversation_counter: 'conversation_counter',
  created_at: 'created_at',
  id: 'id',
  name: 'name',
- ticket_counter: 'ticket_counter', // stored name, renamed to conversation_counter in #10
  updated_at: 'updated_at',
 };

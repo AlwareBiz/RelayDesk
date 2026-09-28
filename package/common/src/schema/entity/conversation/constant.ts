@@ -3,7 +3,7 @@ import type { Conversation } from './type';
 
 // ********************************************************************************
 // == Table =======================================================================
-export const conversationTable: Extract<keyof Database['public']['Tables'], 'ticket'> = 'ticket'; // stored name, renamed to conversation in #10
+export const conversationTable: Extract<keyof Database['public']['Tables'], 'conversation'> = 'conversation';
 
 // == Column ======================================================================
 export const conversationColumns: { [key in keyof Conversation]: key } = {
