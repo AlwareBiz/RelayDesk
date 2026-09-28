@@ -81,6 +81,7 @@ Instructions are guidance; these are checked on every commit and in CI.
 | `await` instead of promise chains             | `promise/prefer-await-to-then`                                |
 | Unique log IDs                                | `npm run sync:log-uuids` (pre-commit), `check:log-uuids` (CI) |
 | Exact dependency versions                     | `npm run check:pinned-deps`                                   |
+| Same keys in `en.json` and `es.json`          | `npm test` (`dictionary.test.ts`)                             |
 
 When a new convention can be checked by a tool, add the check instead of more prose here.
 
