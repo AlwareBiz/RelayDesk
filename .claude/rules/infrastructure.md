@@ -25,6 +25,8 @@ paths:
 ## CI and hooks
 - `.github/workflows/ci.yml` runs the same checks as the pre-commit hook. Keep the two lists identical.
 - Pin every third-party action to a full commit SHA with the release in a comment, and keep workflow `permissions` at the minimum.
+- `.github/workflows/issue-format.yml` checks each opened or edited issue against its form in `.github/ISSUE_TEMPLATE/` and labels it `needs-format` when a section is missing. The forms are the only definition of the sections; to change the format, change a form, never the check.
+- Text from an event (issue and pull request titles, bodies, comments) is untrusted. Pass it to a step through `env` and quote the variable; never put `${{ github.event... }}` text inside `run`.
 
 ## Terraform
 - Commit `.terraform.lock.hcl`; never commit `.terraform/`, state, plans, or a real `terraform.tfvars`.

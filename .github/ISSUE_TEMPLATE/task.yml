@@ -1,0 +1,77 @@
+name: Task
+description: One reviewable change that fits in one pull request.
+labels: [task]
+body:
+ - attributes:
+    value: Write every section for a reader who has only the repository and this issue. The `write-issue` skill walks through them.
+   type: markdown
+ - attributes:
+    description: What changes for the user or the system, in one or two sentences.
+    label: Goal
+   id: goal
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: The entities, workflows and terms this issue uses, each with one meaning. Say which already exist in the code and which are new.
+    label: Naming
+   id: naming
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Where the data comes from, how it flows through the system (stores, jobs, API, UI), who changes it, and when it is removed. Write "No data changes" only when that is true.
+    label: Lifecycle
+   id: lifecycle
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: The code, tables, collections, jobs, services and other issues this work needs. Write blocking issues as "Blocked by #N".
+    label: Dependencies
+   id: dependencies
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Rules the solution must respect, such as workspace isolation, roles, performance limits, compatibility, or the missing transaction across PostgreSQL and MongoDB.
+    label: Constraints
+   id: constraints
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Why this is needed, what exists today, and links to decision records, designs or example data.
+    label: Context
+   id: context
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Observable behavior, one criterion per line. Each one can be checked with a command, a request or a UI step; "fast" or "works well" cannot.
+    label: Acceptance criteria
+   id: acceptance-criteria
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Related work this issue does not do, so the implementer does not do it either.
+    label: Out of scope
+   id: out-of-scope
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Steps a reviewer runs, with commands and data, and the expected result of each.
+    label: How to verify
+   id: how-to-verify
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: '"None", or the flag this work sits behind and its tracking issue.'
+    label: Feature flag
+   id: feature-flag
+   type: textarea
+   validations:
+    required: true

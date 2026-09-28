@@ -8,6 +8,6 @@ export default defineConfig({
  resolve: { alias: { '@relaydesk/common': fileURLToPath(new URL('./package/common/src/index.ts', import.meta.url)) } },
  test: {
   environment: 'node',
-  include: ['eslint/**/*.test.js', 'package/common/src/**/*.test.ts', 'package/server/src/**/*.test.ts'],
+  include: ['eslint/**/*.test.js', 'package/common/src/**/*.test.ts', 'package/server/src/**/*.test.ts', 'scripts/**/*.test.js'],
  },
 });

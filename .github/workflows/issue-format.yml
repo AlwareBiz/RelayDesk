@@ -1,0 +1,45 @@
+name: Issue format
+
+# issue events run this file from the default branch, so an issue cannot change the check that grades it
+on:
+ issues:
+  types: [edited, opened, reopened]
+
+# a new edit to the same issue cancels the run it replaces
+concurrency:
+ cancel-in-progress: true
+ group: issue-format-${{ github.event.issue.number }}
+
+permissions:
+ contents: read
+ issues: write
+
+jobs:
+ check:
+  runs-on: ubuntu-latest
+  timeout-minutes: 10
+  steps:
+   # actions are pinned to a commit SHA; the comment names the release
+   - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+   - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+     with:
+      cache: npm
+      node-version: 22
+   - run: npm ci
+   # the issue body is untrusted text: it reaches the script through env and stdin, never through the command line
+   - env:
+      FORM: ${{ contains(github.event.issue.labels.*.name, 'epic') && 'epic' || 'task' }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+     id: check
+     run: printf '%s' "$ISSUE_BODY" | npm run -s check:issue-format -- --form "$FORM"
+   - env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+     # label only when the check itself failed, not when setup did
+     if: failure() && steps.check.outcome == 'failure'
+     run: gh issue edit "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --add-label needs-format
+   - env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+     if: success() && contains(github.event.issue.labels.*.name, 'needs-format')
+     run: gh issue edit "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label needs-format
