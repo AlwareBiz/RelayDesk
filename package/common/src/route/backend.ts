@@ -12,11 +12,17 @@ export const backendRoutes = {
    index: '/api/dashboard/profile',
   },
   workspace: {
+   conversation: {
+    detail: '/api/dashboard/workspace/:workspaceId/conversation/:conversationId',
+    index: '/api/dashboard/workspace/:workspaceId/conversation',
+    message: '/api/dashboard/workspace/:workspaceId/conversation/:conversationId/message',
+   },
    index: '/api/dashboard/workspace',
-   ticket: {
-    detail: '/api/dashboard/workspace/:workspaceId/ticket/:ticketId',
+   // compatibility aliases for clients built before the rename, removed in #13
+   legacyTicket: {
+    detail: '/api/dashboard/workspace/:workspaceId/ticket/:conversationId',
     index: '/api/dashboard/workspace/:workspaceId/ticket',
-    message: '/api/dashboard/workspace/:workspaceId/ticket/:ticketId/message',
+    message: '/api/dashboard/workspace/:workspaceId/ticket/:conversationId/message',
    },
   },
  },

@@ -5,8 +5,9 @@ import { ReqResHeader, RequestMethod, ResponseStatus } from '@relaydesk/common';
 
 import { env } from './service/env';
 import { authRouter } from './route/auth';
+import { dashboardConversationRouter } from './route/dashboard/conversation';
+import { dashboardLegacyTicketRouter } from './route/dashboard/legacyTicket';
 import { dashboardProfileRouter } from './route/dashboard/profile';
-import { dashboardTicketRouter } from './route/dashboard/ticket';
 import { dashboardWorkspaceRouter } from './route/dashboard/workspace';
 import { healthRouter } from './route/health';
 import { meRouter } from './route/me';
@@ -34,8 +35,9 @@ app.use((req, res, next) => {
 
 // == Route =======================================================================
 app.use(authRouter);
+app.use(dashboardConversationRouter);
+app.use(dashboardLegacyTicketRouter);
 app.use(dashboardProfileRouter);
-app.use(dashboardTicketRouter);
 app.use(dashboardWorkspaceRouter);
 app.use(healthRouter);
 app.use(meRouter);

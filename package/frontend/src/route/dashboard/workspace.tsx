@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link as RouterLink, useNavigate, useParams } from '@tanstack/react-router';
 import { useState } from 'react';
 
-import { backendRoutes, ErrorUtil, frontendRoute, RouteUtil, ticketStatuses, type ListTicketsResponseData, type ListWorkspacesResponseData, type TicketStatus } from '@relaydesk/common';
+import { backendRoutes, conversationStatuses, ErrorUtil, frontendRoute, RouteUtil, type ConversationStatus, type ListConversationsResponseData, type ListWorkspacesResponseData } from '@relaydesk/common';
 
 import { useDialogDisclosure } from '../../hook/disclosure/useDialogDisclosure';
 import { useLocale } from '../../hook/useLocale';
@@ -12,7 +12,7 @@ import { QueryLoadingFallback } from '../../ui/page/QueryLoadingFallback';
 import { DashboardPageContentContainer } from '../../ui/page/dashboard/layout/DashboardPageContentContainer';
 import { DashboardPageLayout } from '../../ui/page/dashboard/layout/DashboardPageLayout';
 import { workspacesQueryKey } from './index';
-import { CreateTicketDialog } from './workspace/CreateTicketDialog';
+import { CreateConversationDialog } from './workspace/CreateConversationDialog';
 
 // ********************************************************************************
 // == Constant ====================================================================
@@ -26,7 +26,7 @@ export const DashboardWorkspacePage = () => {
  const { currentLocale, t } = useLocale();
 
  // -- State ---------------------------------------------------------------------
- const [status, setStatus] = useState<TicketStatus | typeof ALL_STATUSES>(ALL_STATUSES);
+ const [status, setStatus] = useState<ConversationStatus | typeof ALL_STATUSES>(ALL_STATUSES);
 
  // -- Query ---------------------------------------------------------------------
  const workspacesQuery = useQuery<ListWorkspacesResponseData>({
@@ -34,22 +34,22 @@ export const DashboardWorkspacePage = () => {
   queryKey: workspacesQueryKey,
  });
 
- const ticketsQuery = useQuery<ListTicketsResponseData>({
-  queryFn: async () => ApiClient.get<ListTicketsResponseData>(
-   RouteUtil.fill(backendRoutes.dashboard.workspace.ticket.index, { workspaceId })
+ const conversationsQuery = useQuery<ListConversationsResponseData>({
+  queryFn: async () => ApiClient.get<ListConversationsResponseData>(
+   RouteUtil.fill(backendRoutes.dashboard.workspace.conversation.index, { workspaceId })
    + RouteUtil.query({ status: status === ALL_STATUSES ? undefined : status }),
   ),
-  queryKey: ['dashboard', 'workspace', workspaceId, 'tickets', status],
+  queryKey: ['dashboard', 'workspace', workspaceId, 'conversations', status],
  });
 
  // -- Handler -------------------------------------------------------------------
- const handleOpenTicket = (ticketId: string) => {
-  void navigate({ params: { ticketId, workspaceId }, to: frontendRoute.dashboard.ticket });
+ const handleOpenConversation = (conversationId: string) => {
+  void navigate({ params: { conversationId, workspaceId }, to: frontendRoute.dashboard.conversation });
  };
 
  // -- UI ------------------------------------------------------------------------
  const workspace = workspacesQuery.data?.workspaces.find((item) => item.id === workspaceId);
- const tickets = ticketsQuery.data?.tickets ?? [];
+ const conversations = conversationsQuery.data?.conversations ?? [];
  return (
   <DashboardPageLayout>
    <DashboardPageContentContainer>
@@ -61,29 +61,29 @@ export const DashboardWorkspacePage = () => {
      <Box sx={{ alignItems: 'center', display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'space-between' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
        <Typography sx={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{workspace?.name ?? t('common.notAvailable')}</Typography>
-       <Typography color='text.secondary'>{t('dashboard.workspace.description', { total: ticketsQuery.data?.total ?? 0 })}</Typography>
+       <Typography color='text.secondary'>{t('dashboard.workspace.description', { total: conversationsQuery.data?.total ?? 0 })}</Typography>
       </Box>
       <Box sx={{ display: 'flex', gap: '0.75rem' }}>
        <TextField
         label={t('dashboard.workspace.filter.label')}
-        onChange={(event) => setStatus(event.target.value as TicketStatus | typeof ALL_STATUSES)}
+        onChange={(event) => setStatus(event.target.value as ConversationStatus | typeof ALL_STATUSES)}
         select
         size='small'
         sx={{ minWidth: 160 }}
         value={status}
        >
         <MenuItem value={ALL_STATUSES}>{t('dashboard.workspace.filter.all')}</MenuItem>
-        {Object.values(ticketStatuses).map((value) => <MenuItem key={value} value={value}>{t(`ticket.status.${value}`)}</MenuItem>)}
+        {Object.values(conversationStatuses).map((value) => <MenuItem key={value} value={value}>{t(`conversation.status.${value}`)}</MenuItem>)}
        </TextField>
-       <Button onClick={handleOpenDialog} variant='contained'>{t('dashboard.workspace.newTicket')}</Button>
+       <Button onClick={handleOpenDialog} variant='contained'>{t('dashboard.workspace.newConversation')}</Button>
       </Box>
      </Box>
 
-     {ticketsQuery.error ? <Alert severity='error'>{ErrorUtil.toMessage(ticketsQuery.error)}</Alert> : null}
+     {conversationsQuery.error ? <Alert severity='error'>{ErrorUtil.toMessage(conversationsQuery.error)}</Alert> : null}
 
-     {ticketsQuery.isPending
+     {conversationsQuery.isPending
       ? <QueryLoadingFallback minHeight='140px' />
-      : tickets.length === 0
+      : conversations.length === 0
        ? <Typography color='text.secondary'>{t('dashboard.workspace.empty')}</Typography>
        : (
         <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
@@ -99,14 +99,14 @@ export const DashboardWorkspacePage = () => {
            </TableRow>
           </TableHead>
           <TableBody>
-           {tickets.map((ticket) => (
-            <TableRow hover key={ticket.id} onClick={() => handleOpenTicket(ticket.id)} sx={{ cursor: 'pointer' }}>
-             <TableCell>{ticket.number}</TableCell>
-             <TableCell>{ticket.subject}</TableCell>
-             <TableCell>{ticket.requester_email}</TableCell>
-             <TableCell><Chip label={t(`ticket.status.${ticket.status}`)} size='small' /></TableCell>
-             <TableCell>{t(`ticket.priority.${ticket.priority}`)}</TableCell>
-             <TableCell>{new Date(ticket.updated_at).toLocaleString(currentLocale)}</TableCell>
+           {conversations.map((conversation) => (
+            <TableRow hover key={conversation.id} onClick={() => handleOpenConversation(conversation.id)} sx={{ cursor: 'pointer' }}>
+             <TableCell>{conversation.number}</TableCell>
+             <TableCell>{conversation.subject}</TableCell>
+             <TableCell>{conversation.requester_email}</TableCell>
+             <TableCell><Chip label={t(`conversation.status.${conversation.status}`)} size='small' /></TableCell>
+             <TableCell>{t(`conversation.priority.${conversation.priority}`)}</TableCell>
+             <TableCell>{new Date(conversation.updated_at).toLocaleString(currentLocale)}</TableCell>
             </TableRow>
            ))}
           </TableBody>
@@ -115,7 +115,7 @@ export const DashboardWorkspacePage = () => {
        )}
     </Paper>
 
-    <CreateTicketDialog isOpen={isDialogOpen} onClose={handleCloseDialog} onCreated={handleOpenTicket} workspaceId={workspaceId} />
+    <CreateConversationDialog isOpen={isDialogOpen} onClose={handleCloseDialog} onCreated={handleOpenConversation} workspaceId={workspaceId} />
    </DashboardPageContentContainer>
   </DashboardPageLayout>
  );

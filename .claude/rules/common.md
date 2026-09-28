@@ -16,7 +16,7 @@ paths:
 
 ## Imports and barrels
 - Inside `package/common/src`, import with relative paths only; importing `@relaydesk/common` from inside the package creates a cycle.
-- Every folder has an `index.ts` that re-exports only its direct children. Never re-export a grandchild (`export * from './entity/ticket'` from `schema/index.ts` is wrong; `schema/entity/index.ts` re-exports it).
+- Every folder has an `index.ts` that re-exports only its direct children. Never re-export a grandchild (`export * from './entity/conversation'` from `schema/index.ts` is wrong; `schema/entity/index.ts` re-exports it).
 - `src/index.ts` is the public surface. Export new symbols through the barrels so they reach it.
 
 ## Schemas

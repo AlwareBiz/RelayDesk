@@ -1,6 +1,6 @@
 # RelayDesk
 
-A multi-tenant customer-support helpdesk. Teams create workspaces, log customer tickets, and reply to them from a shared queue. These instructions are for every contributor, human or agent; `README.md` points here instead of repeating them.
+A multi-tenant customer-support helpdesk. Teams create workspaces, log customer conversations, and reply to them from a shared queue. These instructions are for every contributor, human or agent; `README.md` points here instead of repeating them.
 
 ## Layout
 
@@ -14,7 +14,7 @@ A multi-tenant customer-support helpdesk. Teams create workspaces, log customer 
 | `docs/decisions`   | Decision records that later work must follow.                                                     |
 | `scripts`          | Migration runner, log-ID sync, dependency pin check, issue format check, Mongo init.              |
 
-Data lives in two stores. PostgreSQL holds relational data: profiles, workspaces, members, tickets, logs. MongoDB holds document data: `ticket_message` conversation threads. There is no transaction across the two stores.
+Data lives in two stores. PostgreSQL holds relational data: profiles, workspaces, members, conversations, logs. MongoDB holds document data: a conversation's messages, in the `ticket_message` collection (renamed to `conversation_message` in #11). There is no transaction across the two stores.
 
 ## Commands
 

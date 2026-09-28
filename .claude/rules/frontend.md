@@ -10,7 +10,7 @@ paths:
 - Call the API only through `ApiClient` (authenticated) or `HttpService`; never call `fetch` from a component. Build paths with `RouteUtil.fill(backendRoutes...)` and `RouteUtil.query(...)`.
 
 ## Structure
-- `route/` mirrors the URL, one file per page (`route/dashboard/workspace/ticket.tsx` serves `/dashboard/workspace/$workspaceId/ticket/$ticketId`). Page-specific dialogs go in a folder named after the page.
+- `route/` mirrors the URL, one file per page (`route/dashboard/workspace/conversation.tsx` serves `/dashboard/workspace/$workspaceId/conversation/$conversationId`). Page-specific dialogs go in a folder named after the page.
 - `router.tsx` wires each page to a `frontendRoute` constant with `requireAuth` or `redirectIfAuthenticated`.
 - `ui/` holds reusable pieces (`container/`, `form/`, `constant/`, `page/`), `hook/` shared hooks, `context/` providers.
 - Signed-in pages render inside `DashboardPageLayout` and `DashboardPageContentContainer`; signed-out pages use `AuthPagesLayout`.
@@ -34,8 +34,8 @@ Components and hooks are arrow functions with sections in this order, omitting e
 - Props and `sx` keys are alphabetical; spreads go last.
 
 ## Data and forms
-- Server state goes through TanStack Query. Query keys include every input the query reads (`['dashboard', 'workspace', workspaceId, 'tickets', status]`). Use the query's own loading and error state, not extra booleans.
-- Forms use Formik with the shared Yup schema and its keys map (`getTextFieldProps(formik, createTicketSchemaKeys.subject, ...)`).
+- Server state goes through TanStack Query. Query keys include every input the query reads (`['dashboard', 'workspace', workspaceId, 'conversations', status]`). Use the query's own loading and error state, not extra booleans.
+- Forms use Formik with the shared Yup schema and its keys map (`getTextFieldProps(formik, createConversationSchemaKeys.subject, ...)`).
 - Mutation feedback goes to `successSnackbar` and `errorSnackbar`; `Alert` is for errors that block the page.
 - Keep list state and dialog visibility in the parent page; dialogs own their form state.
 

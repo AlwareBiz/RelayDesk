@@ -1,12 +1,12 @@
 import type { Database } from '../../../db/type';
-import type { Ticket } from './type';
+import type { Conversation } from './type';
 
 // ********************************************************************************
 // == Table =======================================================================
-export const ticketTable: Extract<keyof Database['public']['Tables'], 'ticket'> = 'ticket';
+export const conversationTable: Extract<keyof Database['public']['Tables'], 'ticket'> = 'ticket'; // stored name, renamed to conversation in #10
 
 // == Column ======================================================================
-export const ticketColumns: { [key in keyof Ticket]: key } = {
+export const conversationColumns: { [key in keyof Conversation]: key } = {
  assignee_profile_id: 'assignee_profile_id',
  created_at: 'created_at',
  id: 'id',

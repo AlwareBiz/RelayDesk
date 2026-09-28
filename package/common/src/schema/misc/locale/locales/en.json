@@ -22,7 +22,51 @@
         "notAvailable": "Not available",
         "save": "Save"
     },
+    "conversation": {
+        "priority": {
+            "high": "High",
+            "low": "Low",
+            "normal": "Normal",
+            "urgent": "Urgent"
+        },
+        "status": {
+            "closed": "Closed",
+            "open": "Open",
+            "pending": "Pending",
+            "solved": "Solved"
+        }
+    },
     "dashboard": {
+        "conversation": {
+            "author": {
+                "agent": "Agent",
+                "customer": "Customer"
+            },
+            "back": "Back to conversations",
+            "create": {
+                "body": "Message from the requester",
+                "priority": "Priority",
+                "requesterEmail": "Requester email",
+                "subject": "Subject",
+                "submit": "Create conversation",
+                "success": "Conversation created",
+                "title": "New conversation"
+            },
+            "field": {
+                "createdAt": "Created",
+                "priority": "Priority",
+                "requester": "Requester",
+                "status": "Status"
+            },
+            "noMessages": "This conversation has no messages.",
+            "reply": {
+                "label": "Reply",
+                "submit": "Send reply",
+                "success": "Reply sent"
+            },
+            "title": "#{{number}} {{subject}}",
+            "updateSuccess": "Conversation updated"
+        },
         "index": {
             "create": {
                 "name": "Workspace name",
@@ -30,7 +74,7 @@
                 "success": "Workspace created",
                 "title": "New workspace"
             },
-            "description": "Pick a workspace to see its tickets.",
+            "description": "Pick a workspace to see its conversations.",
             "empty": "You are not a member of any workspace yet. Create one to get started.",
             "role": "Your role: {{role}}",
             "title": "Workspaces"
@@ -56,36 +100,6 @@
             },
             "title": "Profile"
         },
-        "ticket": {
-            "author": {
-                "agent": "Agent",
-                "customer": "Customer"
-            },
-            "back": "Back to tickets",
-            "create": {
-                "body": "Message from the requester",
-                "priority": "Priority",
-                "requesterEmail": "Requester email",
-                "subject": "Subject",
-                "submit": "Create ticket",
-                "success": "Ticket created",
-                "title": "New ticket"
-            },
-            "field": {
-                "createdAt": "Created",
-                "priority": "Priority",
-                "requester": "Requester",
-                "status": "Status"
-            },
-            "noMessages": "This ticket has no messages.",
-            "reply": {
-                "label": "Reply",
-                "submit": "Send reply",
-                "success": "Reply sent"
-            },
-            "title": "#{{number}} {{subject}}",
-            "updateSuccess": "Ticket updated"
-        },
         "workspace": {
             "back": "All workspaces",
             "column": {
@@ -96,13 +110,13 @@
                 "subject": "Subject",
                 "updatedAt": "Updated"
             },
-            "description": "{{total}} tickets",
-            "empty": "No tickets match this filter.",
+            "description": "{{total}} conversations",
+            "empty": "No conversations match this filter.",
             "filter": {
                 "all": "All",
                 "label": "Status"
             },
-            "newTicket": "New ticket",
+            "newConversation": "New conversation",
             "notFound": "Workspace not found"
         }
     },
@@ -116,20 +130,6 @@
         "english": "English",
         "spanish": "Español",
         "switchLabel": "Change language"
-    },
-    "ticket": {
-        "priority": {
-            "high": "High",
-            "low": "Low",
-            "normal": "Normal",
-            "urgent": "Urgent"
-        },
-        "status": {
-            "closed": "Closed",
-            "open": "Open",
-            "pending": "Pending",
-            "solved": "Solved"
-        }
     },
     "workspace": {
         "role": {

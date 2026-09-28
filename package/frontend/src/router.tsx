@@ -1,4 +1,4 @@
-import { createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+import { createRootRoute, createRoute, createRouter, redirect } from '@tanstack/react-router';
 
 import { frontendRoute } from '@relaydesk/common';
 
@@ -6,7 +6,7 @@ import { Root } from './route/__root';
 import { DashboardIndexPage } from './route/dashboard';
 import { DashboardProfilePage } from './route/dashboard/profile';
 import { DashboardWorkspacePage } from './route/dashboard/workspace';
-import { DashboardTicketPage } from './route/dashboard/workspace/ticket';
+import { DashboardConversationPage } from './route/dashboard/workspace/conversation';
 import { LandingPage } from './route';
 import { LoginPage } from './route/login';
 import { RegisterPage } from './route/register';
@@ -33,7 +33,10 @@ const routes = [
  createRoute({ beforeLoad: requireAuth, component: DashboardIndexPage, getParentRoute: () => root, path: frontendRoute.dashboard.index }),
  createRoute({ beforeLoad: requireAuth, component: DashboardProfilePage, getParentRoute: () => root, path: frontendRoute.dashboard.profile }),
  createRoute({ beforeLoad: requireAuth, component: DashboardWorkspacePage, getParentRoute: () => root, path: frontendRoute.dashboard.workspace }),
- createRoute({ beforeLoad: requireAuth, component: DashboardTicketPage, getParentRoute: () => root, path: frontendRoute.dashboard.ticket }),
+ createRoute({ beforeLoad: requireAuth, component: DashboardConversationPage, getParentRoute: () => root, path: frontendRoute.dashboard.conversation }),
+
+ // compatibility redirect for links from before the rename, removed in #13
+ createRoute({ beforeLoad: ({ params }) => { throw redirect({ params, replace: true, to: frontendRoute.dashboard.conversation }); }, getParentRoute: () => root, path: frontendRoute.dashboard.legacyTicket }),
 ];
 
 // == Export ======================================================================

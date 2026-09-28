@@ -1,0 +1,42 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { conversationMessageCollection } from '@relaydesk/common';
+
+import { mongoDb } from '../../../client/mongoClient';
+import { conversationMessageLifecycle } from './MongoConversationMessageLifecycle';
+
+// ********************************************************************************
+// == Mock ========================================================================
+const { insertOne } = vi.hoisted(() => ({ insertOne: vi.fn() }));
+vi.mock('../../../client/mongoClient', () => ({ mongoDb: { collection: vi.fn(() => ({ insertOne })) } }));
+
+// == Constant ====================================================================
+const CONVERSATION_ID = '3e963725-1a6a-40cc-bf3f-fd1539b68d66';
+const WORKSPACE_ID = '187f0909-43fd-43fa-8539-c4a44671e345';
+
+// == Test ========================================================================
+describe('MongoConversationMessageLifecycle', () => {
+ beforeEach(() => {
+  vi.clearAllMocks();
+ });
+
+ describe('create', () => {
+  // documents written under the new name would be invisible to every reader until #11
+  it('stores the conversation id in the ticket_id field of the ticket_message collection', async () => {
+   await conversationMessageLifecycle.create({ author_email: 'jane@example.com', author_profile_id: null, author_type: 'customer', body: 'Hi', conversation_id: CONVERSATION_ID, workspace_id: WORKSPACE_ID });
+
+   expect(mongoDb.collection).toHaveBeenCalledWith(conversationMessageCollection);
+   const document = insertOne.mock.calls[0]?.[0] as Record<string, unknown>;
+   expect(document.ticket_id).toBe(CONVERSATION_ID);
+   expect(document).not.toHaveProperty('conversation_id');
+   expect(document.workspace_id).toBe(WORKSPACE_ID);
+  });
+
+  it('returns the message with conversation_id', async () => {
+   const message = await conversationMessageLifecycle.create({ author_email: 'jane@example.com', author_profile_id: null, author_type: 'customer', body: 'Hi', conversation_id: CONVERSATION_ID, workspace_id: WORKSPACE_ID });
+
+   expect(message.conversation_id).toBe(CONVERSATION_ID);
+   expect(message).not.toHaveProperty('ticket_id');
+  });
+ });
+});

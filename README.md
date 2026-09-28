@@ -1,8 +1,8 @@
 # RelayDesk
 
-A multi-tenant helpdesk. Teams create workspaces, log customer tickets, and reply to them from a shared queue.
+A multi-tenant helpdesk. Teams create workspaces, log customer conversations, and reply to them from a shared queue.
 
-Built with npm workspaces: an Express API, a React web app, and shared TypeScript contracts. Workspaces, members and tickets live in PostgreSQL; ticket conversations live in MongoDB.
+Built with npm workspaces: an Express API, a React web app, and shared TypeScript contracts. Workspaces, members and conversations live in PostgreSQL; a conversation's messages live in MongoDB.
 
 ## Start here
 
