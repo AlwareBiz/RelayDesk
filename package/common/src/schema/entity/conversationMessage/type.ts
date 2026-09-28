@@ -16,11 +16,6 @@ export type ConversationMessageDocument = {
  workspace_id: string;
 };
 
-/** a message as stored before the rename, in the collection named by `legacyTicketMessageCollection`; read only by the dual read, removed in #12 */
-export type LegacyTicketMessageDocument = Omit<ConversationMessageDocument, 'conversation_id'> & {
- ticket_id: string;
-};
-
 /** a message as exposed through the API */
 export type ConversationMessage = Omit<ConversationMessageDocument, '_id' | 'created_at'> & {
  created_at: string;
