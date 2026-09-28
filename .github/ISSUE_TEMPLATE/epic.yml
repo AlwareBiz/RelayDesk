@@ -1,0 +1,77 @@
+name: Epic
+description: A change too large for one pull request, split into task sub-issues.
+labels: [epic]
+body:
+ - attributes:
+    value: An epic is never implemented directly. It holds the shared model of the change, and each sub-issue is a task that an agent builds on its own. The `write-issue` skill walks through the sections and creates the sub-issues.
+   type: markdown
+ - attributes:
+    description: What changes for the user or the system once every sub-issue is done.
+    label: Goal
+   id: goal
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: The entities, workflows and terms the whole epic uses, each with one meaning. Sub-issues reuse these names.
+    label: Naming
+   id: naming
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Where the data comes from, how it flows through the system (stores, jobs, API, UI), who changes it, and when it is removed.
+    label: Lifecycle
+   id: lifecycle
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: What the epic needs that exists outside it, such as code, services or other issues.
+    label: Dependencies
+   id: dependencies
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Rules every sub-issue must respect.
+    label: Constraints
+   id: constraints
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Why this is needed, what exists today, and links to decision records, designs or example data.
+    label: Context
+   id: context
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: The planned sub-issues in build order, one per line, each with what it delivers and what it is blocked by. Each becomes a Task issue linked as a sub-issue, and each can merge on its own without a regression.
+    label: Sub-issues
+   id: sub-issues
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: Related work this epic does not do.
+    label: Out of scope
+   id: out-of-scope
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: The end-to-end check a reviewer runs once every sub-issue is closed, with the expected result.
+    label: How to verify
+   id: how-to-verify
+   type: textarea
+   validations:
+    required: true
+ - attributes:
+    description: '"None", or the flag the whole epic sits behind and its tracking issue.'
+    label: Feature flag
+   id: feature-flag
+   type: textarea
+   validations:
+    required: true

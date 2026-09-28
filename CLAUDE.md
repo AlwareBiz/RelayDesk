@@ -11,20 +11,22 @@ A multi-tenant customer-support helpdesk. Teams create workspaces, log customer 
 | `package/frontend` | React 19, MUI, TanStack Query and Router.                                                         |
 | `migrations`       | Ordered PostgreSQL migrations.                                                                    |
 | `eslint`           | Local lint rules that enforce the conventions below.                                              |
-| `scripts`          | Migration runner, log-ID sync, dependency pin check, Mongo init.                                  |
+| `docs/decisions`   | Decision records that later work must follow.                                                     |
+| `scripts`          | Migration runner, log-ID sync, dependency pin check, issue format check, Mongo init.              |
 
 Data lives in two stores. PostgreSQL holds relational data: profiles, workspaces, members, tickets, logs. MongoDB holds document data: `ticket_message` conversation threads. There is no transaction across the two stores.
 
 ## Commands
 
-| Task                           | Command                                                                                                 |
-|--------------------------------|---------------------------------------------------------------------------------------------------------|
-| Install                        | `npm install`                                                                                           |
-| Start databases                | `docker compose up -d postgres mongo`                                                                   |
-| Apply migrations               | `npm run db:migrate`                                                                                    |
-| Run API and web app            | `npm run dev:server` and `npm run dev:frontend`                                                         |
-| Check everything CI checks     | `npm run check:pinned-deps && npm run check:log-uuids && npm run lint && npm run typecheck && npm test` |
-| Fix lint and import formatting | `npm run lint:fix`                                                                                      |
+| Task                                 | Command                                                                                                 |
+|--------------------------------------|---------------------------------------------------------------------------------------------------------|
+| Install                              | `npm install`                                                                                           |
+| Start databases                      | `docker compose up -d postgres mongo`                                                                   |
+| Apply migrations                     | `npm run db:migrate`                                                                                    |
+| Run API and web app                  | `npm run dev:server` and `npm run dev:frontend`                                                         |
+| Check everything CI checks           | `npm run check:pinned-deps && npm run check:log-uuids && npm run lint && npm run typecheck && npm test` |
+| Fix lint and import formatting       | `npm run lint:fix`                                                                                      |
+| Check an issue body against its form | `npm run -s check:issue-format -- --form task < body.md` (or `--form epic`)                             |
 
 Run lint, typecheck and the relevant tests before finishing any change. The pre-commit hook and CI run the full list.
 
@@ -83,6 +85,7 @@ Instructions are guidance; these are checked on every commit and in CI.
 | Exact dependency versions                     | `npm run check:pinned-deps`                                   |
 | Agents never read or edit `.env` files        | `.claude/settings.json` permission rules                      |
 | Same keys in `en.json` and `es.json`          | `npm test` (`dictionary.test.ts`)                             |
+| Every issue has its form's sections           | `Issue format` workflow (labels the issue `needs-format`)     |
 
 When a new convention can be checked by a tool, add the check instead of more prose here.
 
@@ -106,6 +109,16 @@ When a new convention can be checked by a tool, add the check instead of more pr
 | `add-api-route`           | Add an API endpoint and call it from the frontend.                |
 | `run-migrations`          | Write, apply and verify a migration locally.                      |
 | `local-setup`             | Get RelayDesk running from a fresh clone, and fix setup problems. |
+| `write-issue`             | Turn a need into issues through a discussion with the engineer.   |
+| `implement-issue`         | Build one issue: post a plan, wait for approval, then open a PR.  |
+
+## Planning work
+
+Work starts as a GitHub issue. The forms in `.github/ISSUE_TEMPLATE/` are the only definition of what an issue contains: naming, lifecycle, dependencies and constraints, besides the goal, criteria, scope and verification. `docs/decisions/0001-issue-format.md` explains why.
+
+- To turn a need into issues, use `write-issue`. Changes that need no discussion, such as a typo or a broken link, need no issue.
+- To build an issue, use `implement-issue`. Post a plan on the issue and wait for the engineer's approval before writing code.
+- Decisions that later work must follow live in `docs/decisions/`. Read the records an issue links before planning, and add a record when an issue settles a decision.
 
 ## Pull requests
 

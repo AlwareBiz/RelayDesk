@@ -12,6 +12,7 @@
  "scripts": {
   "build:frontend": "npm run build -w package/common && npm run build -w package/frontend",
   "build:server": "npm run build -w package/common && npm run build -w package/server",
+  "check:issue-format": "node scripts/check-issue-format.mjs",
   "check:log-uuids": "node scripts/sync-log-uuids.mjs --check",
   "check:pinned-deps": "node scripts/check-pinned-dependencies.mjs",
   "clean": "rm -rf package/*/dist node_modules",
@@ -32,6 +33,7 @@
   "eslint": "9.39.5",
   "eslint-plugin-promise": "7.3.0",
   "husky": "9.1.7",
+  "js-yaml": "4.3.2",
   "typescript": "5.9.3",
   "typescript-eslint": "8.64.0",
   "vitest": "5.0.2"
